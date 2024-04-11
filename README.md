@@ -1,6 +1,6 @@
 ## Supply Trace
 
-Transparent tracking and provence of supply chain | Built using sign protocol
+Transparent tracking and provenance of supply chain | Built using sign protocol
 
 ## Features
 
