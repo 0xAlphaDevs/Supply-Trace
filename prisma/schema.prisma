@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Transaction {
+model Transactions {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   data     String
 }
