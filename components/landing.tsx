@@ -1,11 +1,21 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import Home from "./home";
+import { useAccount } from "wagmi";
+
 
 const Landing = () => {
   const [showHome, setShowHome] = useState(false);
+  const { isConnected } = useAccount()
+
+  useEffect(() => {
+    // Check if wallet is connected on component mount
+    if (isConnected) {
+      setShowHome(true);
+    }
+  }, [isConnected]);
 
   const launchApp = () => {
     setShowHome(true);
