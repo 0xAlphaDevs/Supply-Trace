@@ -1,17 +1,28 @@
 "use client"
 
-import React from "react"
-import { Button } from "./ui/button"
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import Home from "./home";
 
-type Props = {}
+const Landing = () => {
+  const [showHome, setShowHome] = useState(false);
 
-const Landing = (props: Props) => {
+  const launchApp = () => {
+    setShowHome(true);
+  };
+
   return (
-    <div className="">
-      <p>Welcome to Supply Trace</p>
-      <Button onClick={() => {}}>Launch App</Button>
-    </div>
-  )
-}
+    <>
+      {!showHome && (
+        <div className="">
+          <p>Welcome to Supply Trace</p>
+          <Button onClick={launchApp}>Launch App</Button>
+        </div>
+      )}
+      {showHome && <Home />}
+    </>
+  );
+};
 
-export default Landing
+export default Landing;
+
