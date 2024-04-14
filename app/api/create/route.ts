@@ -1,16 +1,28 @@
-import prisma from "@/prisma/prisma"
-import { NextRequest, NextResponse } from "next/server"
+import prisma from "@/prisma/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
 export type MyData = {
-  data: string
-}
+  data: string;
+};
 
-export default async function POST(req: NextRequest, res: Response) {
-  const { data }: MyData = await req.json()
+export const runtime = "nodejs";
 
-  const result = await prisma.user.create({
-    data: data,
-  })
+export async function POST(req: NextRequest, res: Response) {
+  const { data }: MyData = await req.json();
 
-  return NextResponse.json(JSON.stringify(result), { status: 200 })
+  console.log(data);
+  try {
+    const result = await prisma.transactions.create({
+      data: {
+        test: "test",
+      },
+    });
+    return NextResponse.json(JSON.stringify(result), { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred" },
+      { status: 500 }
+    );
+  }
 }

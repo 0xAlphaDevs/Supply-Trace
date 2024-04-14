@@ -5,6 +5,8 @@ import { createTransaction } from "@/lib/helpers/createTransaction"
 
 const Page = () => {
   async function handleCreateTransaction() {
+    console.log("Creating transaction");
+
     const res = await createTransaction({ data: "test" })
     console.log(res)
   }
