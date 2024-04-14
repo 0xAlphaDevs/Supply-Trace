@@ -11,7 +11,6 @@ const Landing = () => {
   const { isConnected } = useAccount()
 
   useEffect(() => {
-    // Check if wallet is connected on component mount
     if (isConnected) {
       setShowHome(true);
     }
