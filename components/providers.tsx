@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { WagmiProvider, createConfig } from "wagmi"
-import { mainnet } from "wagmi/chains"
+import { mainnet, sepolia } from "wagmi/chains"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 
@@ -13,7 +13,7 @@ interface ProvidersProps {
 const config = createConfig(
   getDefaultConfig({
     walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID || "",
-    chains: [mainnet],
+    chains: [mainnet, sepolia],
 
     appName: "Supply_Trace",
 
