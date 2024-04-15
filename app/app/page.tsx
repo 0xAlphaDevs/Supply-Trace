@@ -15,13 +15,15 @@ export default function Home() {
         }
     });
 
-
     return (
-        <main className="flex min-h-screen flex-col justify-between px-8 py-4 ">
-            <div className='flex flex-col'>
-                <p> Please connect your wallet to get started with Supply Trace</p>
+
+        <div className=''>
+            <div className="flex justify-between items-center p-8">
+                <p>Supply Trace</p>
                 <ConnectKitButton />
             </div>
-        </main>
+            <div className="fixed top-[40%] left-[28%] text-2xl font-bold"> Please connect your wallet to get started with Supply Trace</div>
+        </div>
+
     )
 }

@@ -63,6 +63,18 @@ const Navbar = () => {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/verify" legacyBehavior passHref>
+                <NavigationMenuLink className={cn(
+                  navigationMenuTriggerStyle(),
+                  pathname === ("/verify")
+                    ? "bg-orange-300"
+                    : ""
+                )}>
+                  Verify
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>

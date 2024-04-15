@@ -26,7 +26,7 @@ const ProductCard = () => {
   return (
     <div className="p-8 grid gap-8 ">
       {items.map((item: Item) => (
-        <Card key={item.id} className="p-4 shadow-lg">
+        <Card key={item.id} className="p-4 shadow-md">
           <CardHeader>
             <CardTitle className='flex justify-between'>
               <h2 className="text-xl font-bold">{item.name}</h2>
