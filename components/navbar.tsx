@@ -40,14 +40,14 @@ const Navbar = () => {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/register-product" legacyBehavior passHref>
+              <Link href="/create-product" legacyBehavior passHref>
                 <NavigationMenuLink className={cn(
                   navigationMenuTriggerStyle(),
-                  pathname === ("/register-product")
+                  pathname === ("/create-product")
                     ? "bg-orange-300"
                     : ""
                 )}>
-                  Register Product
+                  Create Product
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
