@@ -17,9 +17,6 @@ import {
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 
-
-
-
 const Navbar = () => {
   const pathname = usePathname()
   return (
@@ -58,7 +55,7 @@ const Navbar = () => {
               <Link href="/past-transactions" legacyBehavior passHref>
                 <NavigationMenuLink className={cn(
                   navigationMenuTriggerStyle(),
-                  pathname === ("/history")
+                  pathname === ("/past-transactions")
                     ? "bg-orange-300"
                     : ""
                 )}>

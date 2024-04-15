@@ -1,11 +1,11 @@
 import React from 'react'
 
-const RegisterProduct = () => {
+const CreateProduct = () => {
     return (
-        <div>
+        <div className='py-10'>
             RegisterProduct
         </div>
     )
 }
 
-export default RegisterProduct
+export default CreateProduct
