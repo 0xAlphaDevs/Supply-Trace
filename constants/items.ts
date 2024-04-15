@@ -1,5 +1,15 @@
+// types.ts
+export interface Item {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  tags: string[]
+}
+
+
 // constants.ts
-import { Item } from '@/lib/types';
+
 
 export const items: Item[] = [
   { id: 1, name: 'Item 1', description: 'Description for Item 1', price: 10, tags:["abc", "xyz"] },

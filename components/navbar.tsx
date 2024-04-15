@@ -14,8 +14,14 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
+
+
+
 
 const Navbar = () => {
+  const pathname = usePathname()
   return (
     <div className="flex justify-between">
       <div className="flex gap-48 items-center">
@@ -24,22 +30,39 @@ const Navbar = () => {
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link href="/inventory" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    pathname === ("/inventory")
+                      ? "bg-orange-300"
+                      : ""
+                  )}
+                >
                   Inventory
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/register-product" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink className={cn(
+                  navigationMenuTriggerStyle(),
+                  pathname === ("/register-product")
+                    ? "bg-orange-300"
+                    : ""
+                )}>
                   Register Product
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/history" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  History
+              <Link href="/past-transactions" legacyBehavior passHref>
+                <NavigationMenuLink className={cn(
+                  navigationMenuTriggerStyle(),
+                  pathname === ("/history")
+                    ? "bg-orange-300"
+                    : ""
+                )}>
+                  Past Transactions
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
