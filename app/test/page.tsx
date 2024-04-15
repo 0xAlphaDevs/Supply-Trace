@@ -5,6 +5,7 @@ import { createTransaction } from "@/lib/helpers/createTransaction"
 import { createProduct } from "@/lib/helpers/createProduct"
 import { updateTransaction } from "@/lib/helpers/updateTransaction"
 import { Product, Transaction } from "@/lib/types"
+import { getAttestation } from "@/lib/helpers/getAttestation"
 
 const product: Product = {
   name: "Test Product",
@@ -45,6 +46,14 @@ const Page = () => {
     console.log(res)
   }
 
+  // update a transaction i.e. set archive to true
+  async function handleGetAttestation() {
+    for (let i = 1; i < 10; i++) {
+      const result = await getAttestation(i.toString());
+      // process result if needed
+    }
+  }
+
   return (
     <div className="flex flex-col p-16 justify-center items-center gap-4">
       <Button onClick={handleCreateTransaction} className="">
@@ -52,6 +61,9 @@ const Page = () => {
       </Button>
       <Button onClick={handleUpdateTransaction} className="">
         Update Transaction
+      </Button>
+      <Button onClick={handleGetAttestation} className="">
+        Get Attestation
       </Button>
 
 
