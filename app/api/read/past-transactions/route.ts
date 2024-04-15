@@ -1,7 +1,6 @@
+import { Transaction } from "@/lib/types";
 import prisma from "@/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
-
-export const runtime = "nodejs";
 
 export async function GET(req: NextRequest, res: Response) {
   const { walletAddress }: { walletAddress: string } = await req.json();

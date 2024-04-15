@@ -1,12 +1,10 @@
-import { Transaction } from "../types";
-
-export async function updateTransaction(txData: Transaction) {
+export async function updateTransaction(attestaionId: string) {
   const res = await fetch("/api/update/transaction", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(txData),
+    body: JSON.stringify({ attestaionId: attestaionId }),
   });
 
   if (!res.ok) {

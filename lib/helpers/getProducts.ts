@@ -1,4 +1,4 @@
-export async function getInventory(walletAddress: string) {
+export async function getProducts(walletAddress: string) {
   const res = await fetch("/api/read/products", {
     method: "GET",
     headers: {
