@@ -19,6 +19,8 @@ import {
   DollarSign,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import Sell from './sell';
+import ViewHistory from './viewHistory';
 
 const ProductCard = () => {
   return (
@@ -59,7 +61,7 @@ const ProductCard = () => {
                   <Button>View History</Button>
                 </DialogTrigger>
                 <DialogContent className=" max-w-[90%]">
-                  Hi there i am a dialog
+                  <ViewHistory />
                 </DialogContent>
               </Dialog>
               <Dialog>
@@ -67,7 +69,7 @@ const ProductCard = () => {
                   <Button>Sell</Button>
                 </DialogTrigger>
                 <DialogContent className=" max-w-[90%]">
-                  Hi there i am a dialog
+                  <Sell />
                 </DialogContent>
               </Dialog>
             </div>

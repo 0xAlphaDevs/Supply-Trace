@@ -55,14 +55,14 @@ const Navbar = () => {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/history" legacyBehavior passHref>
+              <Link href="/past-transactions" legacyBehavior passHref>
                 <NavigationMenuLink className={cn(
                   navigationMenuTriggerStyle(),
                   pathname === ("/history")
                     ? "bg-orange-300"
                     : ""
                 )}>
-                  History
+                  Past Transactions
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
