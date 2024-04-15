@@ -13,6 +13,7 @@ export interface Transaction {
   attestationId: string;
   from: string;
   to: string;
+  archived: boolean;
   amount: number;
   timestamp: Date;
 }

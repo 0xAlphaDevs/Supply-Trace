@@ -1,14 +1,10 @@
-export async function updateTransaction(
-  attestaionId: string,
-  walletAddress: string
-) {
-  const res = await fetch("/api/update/transaction", {
-    method: "POST",
+export async function getProducts(walletAddress: string) {
+  const res = await fetch("/api/read/products", {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      attestaionId: attestaionId,
       walletAddress: walletAddress,
     }),
   });

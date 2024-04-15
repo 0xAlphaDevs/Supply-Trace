@@ -1,9 +1,10 @@
+"use client"
 import React from "react"
 import { Button } from "@/components/ui/button"
 import { createTransaction } from "@/lib/helpers/createTransaction"
 import { createProduct } from "@/lib/helpers/createProduct"
 import { updateTransaction } from "@/lib/helpers/updateTransaction"
-import { Product } from "@/lib/types"
+import { Product, Transaction } from "@/lib/types"
 
 const product: Product = {
   name: "Test Product",
@@ -12,13 +13,21 @@ const product: Product = {
   vendor: "Test Vendor",
 }
 
-const transaction = {}
+const transaction: Transaction = {
+  attestation: {},
+  attestationId: "1",
+  from: "test",
+  to: "test",
+  archived: false,
+  amount: 100,
+  timestamp: new Date(),
+}
 
 const Page = () => {
   // create a transaction for attestation
   async function handleCreateTransaction() {
     console.log("Creating transaction");
-    const res = await createTransaction({ data: "test" })
+    const res = await createTransaction(transaction)
     console.log(res)
   }
 
@@ -32,7 +41,7 @@ const Page = () => {
   // update a transaction i.e. set archive to true
   async function handleUpdateTransaction() {
     console.log("Updating transaction");
-    const res = await updateTransaction({ data: "test" })
+    const res = await updateTransaction("1", "test")
     console.log(res)
   }
 
@@ -41,9 +50,10 @@ const Page = () => {
       <Button onClick={handleCreateTransaction} className="">
         Create Transaction
       </Button>
-      <Button className="">Update Transaction</Button>
+      <Button onClick={handleUpdateTransaction} className="">
+        Update Transaction
+      </Button>
 
-      <Button className="">Create Product</Button>
 
     </div>
   )

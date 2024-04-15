@@ -4,16 +4,17 @@ import { NextRequest, NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest, res: Response) {
-  const { attestaionId } = await req.json();
+  const { attestaionId, walletAddress } = await req.json();
 
   console.log("Updating transaction with attestationId: ", attestaionId);
   try {
     const result = await prisma.transactions.update({
       where: {
-        attestaionId: attestaionId,
+        attestationId: attestaionId,
+        to: walletAddress,
       },
       data: {
-        archive: true,
+        archived: true,
       },
     });
     return NextResponse.json(JSON.stringify(result), { status: 200 });
