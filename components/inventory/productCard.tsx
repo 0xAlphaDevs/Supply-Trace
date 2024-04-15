@@ -1,8 +1,7 @@
 import React from 'react'
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Item } from '@/lib/types';
-import { items } from '@/constants/items';
+import { Item, items } from '@/constants/items';
 import { Badge } from '../ui/badge';
 import {
   Card,
