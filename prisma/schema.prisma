@@ -4,7 +4,6 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -15,6 +14,18 @@ generator client {
 }
 
 model Transactions {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  test     String
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  attestation  Json
+  attestaionId String
+  from         String
+  to           String
+  amount       Float
+  timestamp    DateTime
+}
+
+model Products {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  price   Float
+  taxRate Float
 }

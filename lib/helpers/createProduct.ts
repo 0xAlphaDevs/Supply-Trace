@@ -1,12 +1,12 @@
-import { Transaction } from "../types";
+import { Product } from "../types";
 
-export async function updateTransaction(txData: Transaction) {
-  const res = await fetch("/api/update/transaction", {
+export async function createProduct(product: Product) {
+  const res = await fetch("/api/create/product", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(txData),
+    body: JSON.stringify(product),
   });
 
   if (!res.ok) {
