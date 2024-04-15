@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div className="flex justify-between">
       <div className="flex gap-48 items-center">
-        <div>Navbar</div>
+        <Link href="/">Navbar</Link>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

@@ -1,10 +1,11 @@
 
+import ProductCard from '@/components/inventory/productCard'
 import React from 'react'
 
 const Inventory = () => {
     return (
-        <div >
-            <div> Inventory</div>
+        <div className='py-10'>
+            <ProductCard />
         </div>
     )
 }
