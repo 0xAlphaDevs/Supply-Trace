@@ -1,5 +1,8 @@
 // types.ts
-export interface Attestation {}
+export interface Attestation {
+  previousAttestationId: string;
+  data: string;
+}
 
 export interface Product {
   name: string;

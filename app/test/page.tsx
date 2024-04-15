@@ -6,6 +6,7 @@ import { createProduct } from "@/lib/helpers/createProduct"
 import { updateTransaction } from "@/lib/helpers/updateTransaction"
 import { Product, Transaction } from "@/lib/types"
 import { getAttestation } from "@/lib/helpers/getAttestation"
+import { verifyHistory } from "@/lib/helpers/verifyHistory"
 
 const product: Product = {
   name: "Test Product",
@@ -15,7 +16,10 @@ const product: Product = {
 }
 
 const transaction: Transaction = {
-  attestation: {},
+  attestation: {
+    previousAttestationId: "",
+    data: "This is the first attestation",
+  },
   attestationId: "1",
   from: "test",
   to: "test",
@@ -25,6 +29,7 @@ const transaction: Transaction = {
 }
 
 const Page = () => {
+
   // create a transaction for attestation
   async function handleCreateTransaction() {
     console.log("Creating transaction");
@@ -54,6 +59,13 @@ const Page = () => {
     }
   }
 
+  // verify history
+  async function handleVerifyHistory() {
+    console.log("Verifying history");
+    const res = await verifyHistory("3");
+    console.log(res);
+  }
+
   return (
     <div className="flex flex-col p-16 justify-center items-center gap-4">
       <Button onClick={handleCreateTransaction} className="">
@@ -65,6 +77,10 @@ const Page = () => {
       <Button onClick={handleGetAttestation} className="">
         Get Attestation
       </Button>
+      <Button onClick={handleVerifyHistory} className="">
+        Verify History
+      </Button>
+
 
 
     </div>
