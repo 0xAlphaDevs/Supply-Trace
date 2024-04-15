@@ -13,14 +13,10 @@ interface ProvidersProps {
 const config = createConfig(
   getDefaultConfig({
     walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID || "",
-    chains: [mainnet, sepolia],
+    chains: [sepolia],
 
     appName: "Supply_Trace",
 
-    // Optional App Info
-    // appDescription: "Your App Description",
-    // appUrl: "https://family.co", // your app's url
-    // appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
   })
 )
 
