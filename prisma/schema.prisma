@@ -28,4 +28,12 @@ model Products {
   name    String
   price   Float
   taxRate Float
+  vendor  String
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  sector    String
+  timestamp DateTime
 }

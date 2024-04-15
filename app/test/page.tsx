@@ -3,6 +3,16 @@ import { Button } from "@/components/ui/button"
 import { createTransaction } from "@/lib/helpers/createTransaction"
 import { createProduct } from "@/lib/helpers/createProduct"
 import { updateTransaction } from "@/lib/helpers/updateTransaction"
+import { Product } from "@/lib/types"
+
+const product: Product = {
+  name: "Test Product",
+  price: 100,
+  taxRate: 0.1,
+  vendor: "Test Vendor",
+}
+
+const transaction = {}
 
 const Page = () => {
   // create a transaction for attestation
@@ -15,7 +25,7 @@ const Page = () => {
   // create a product 
   async function handleCreateProduct() {
     console.log("Creating product");
-    const res = await createProduct({ name: "test" })
+    const res = await createProduct(product)
     console.log(res)
   }
 
