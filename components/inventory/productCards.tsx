@@ -75,16 +75,16 @@ const ProductCards = () => {
                 <DialogTrigger asChild>
                   <Button>View History</Button>
                 </DialogTrigger>
-                <DialogContent className=" max-w-[90%]">
-                  <ViewHistory />
+                <DialogContent className=" max-w-[60%]">
+                  <ViewHistory attestationId={item.attestationId} />
                 </DialogContent>
               </Dialog>
               <Dialog>
                 <DialogTrigger asChild>
                   <Button>Sell</Button>
                 </DialogTrigger>
-                <DialogContent className=" max-w-[90%]">
-                  <Sell />
+                <DialogContent className=" max-w-[60%]">
+                  <Sell attestationId={item.attestationId} />
                 </DialogContent>
               </Dialog>
             </div>

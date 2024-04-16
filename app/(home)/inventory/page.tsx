@@ -21,7 +21,7 @@ const Inventory = () => {
             {
                 isConnected ? (
                     <div className='py-10' >
-                        <SellNewItem />
+                        <SellNewItem attestationId="" />
                         <ProductCards />
                     </div >
                 ) : (<>Loading ...</>)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ViewHistory = () => {
+const ViewHistory = ({ attestationId }: { attestationId: string }) => {
     return (
         <div>ViewHistory</div>
     )

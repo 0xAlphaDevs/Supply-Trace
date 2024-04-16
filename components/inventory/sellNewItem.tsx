@@ -13,8 +13,9 @@ import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
+// dropdown select product, [product name] , [product serial no], grand total, [tax rate], sell to
 
-const SellNewItem = () => {
+const SellNewItem = ({ attestationId }: { attestationId: string }) => {
     return (
         <div className='px-8 flex justify-between'>
             <p> Inventory</p>
