@@ -22,7 +22,8 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { transactions, Transaction } from "@/constants/transactions";
+import { transactions, } from "@/constants/transactions";
+import { PastTransactions } from "@/lib/types";
 
 
 export function PastTransactionsTable() {
@@ -31,39 +32,39 @@ export function PastTransactionsTable() {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
 
-    const columns: ColumnDef<Transaction>[] = [
+    const columns: ColumnDef<PastTransactions>[] = [
         {
-            accessorKey: "proposalId",
-            header: " Id",
+            accessorKey: "attestationId",
+            header: "Attestation Id",
             cell: ({ row }) => {
-                const proposalId = parseInt(row.getValue("proposalId"));
+                const proposalId = parseInt(row.getValue("attestationId"));
                 return <div className="capitalize">{proposalId}</div>;
             },
         },
         {
-            accessorKey: "description",
-            header: "Item Name",
-            cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
+            accessorKey: "transactionType",
+            header: "Transaction Type",
+            cell: ({ row }) => <div className="">{row.getValue("transactionType")}</div>,
         },
         {
-            accessorKey: "createdAt",
-            header: "Sell Date",
+            accessorKey: "date",
+            header: "Date",
             cell: ({ row }) => (
                 <div className=" font-semibold px-2 bg-orange-50 hover:text-white hover:bg-orange-900 inline-block rounded-full ">
-                    {row.getValue("createdAt")}
+                    {row.getValue("date")}
                 </div>
             ),
         },
         {
-            accessorKey: "createdBy",
-            header: "Buyer",
+            accessorKey: "counterParty",
+            header: "Counter Party",
             cell: ({ row }) => (
                 <div className="lowercase">{row.getValue("createdBy")}</div>
             ),
         },
         {
             accessorKey: "bid",
-            header: () => <div className="">Price</div>,
+            header: () => <div className="">Transaction Value</div>,
             cell: ({ row }) => {
                 const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
                 const formatted = new Intl.NumberFormat("en-US", {

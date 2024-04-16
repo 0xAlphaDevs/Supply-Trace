@@ -1,19 +1,45 @@
-// types.ts
-export interface Transaction {
-  proposalId: number;
-  description: string;
-  createdAt: string;
-  createdBy: string;
-  bid: number;
-}
+import { PastTransactions } from "@/lib/types";
 
 // transactions.ts
-export const transactions: Transaction[] = [
+export const combinedTransactions: PastTransactions[] = [
   {
-    proposalId: 1,
-    description: "Proposal 1 description",
-    createdAt: "2024-04-01",
-    createdBy: "Freelancer 1",
-    bid: 1000000000000000000, // 1 GHO
+    buyTransactions: [
+      {
+        attestation: {
+          previousAttestationId: "",
+          productName: "Test Product",
+          productSerialNo: "123",
+          soldBy: "test",
+          boughtBy: "test",
+          grandTotal: 100,
+          taxRate: 0.1,
+        },
+        attestationId: "1",
+        from: "test",
+        to: "test",
+        archived: false,
+        transactionValue: 100,
+        timestamp: new Date(),
+      },
+    ],
+    sellTransactions: [
+      {
+        attestation: {
+          previousAttestationId: "",
+          productName: "Test Product",
+          productSerialNo: "123",
+          soldBy: "test",
+          boughtBy: "test",
+          grandTotal: 100,
+          taxRate: 0.1,
+        },
+        attestationId: "1",
+        from: "test",
+        to: "test",
+        archived: false,
+        transactionValue: 100,
+        timestamp: new Date(),
+      },
+    ],
   },
 ];
