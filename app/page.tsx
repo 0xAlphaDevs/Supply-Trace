@@ -1,21 +1,18 @@
-"use client"
-
+// This is landing page for the app
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter()
 
-  const launchApp = () => {
-    router.push('/inventory')
-  };
 
   return (
-    <main className="flex min-h-screen justify-between px-8 py-4 ">
+    <main className="flex flex-col justify-center items-center min-h-screen gap-8 px-8 py-4 ">
 
-      <p>Welcome to Supply Trace</p>
-      <Button onClick={launchApp}>Launch App</Button>
+      <h1 className="text-4xl">Welcome to Supply Trace</h1>
+      <Link href="/app">
+        <Button >Launch App</Button>
+      </Link>
 
     </main>
   )
