@@ -12,11 +12,11 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col justify-between px-8 py-4 ">
-      <div className="">
-        <p>Welcome to Supply Trace</p>
-        <Button onClick={launchApp}>Launch App</Button>
-      </div>
+    <main className="flex min-h-screen justify-between px-8 py-4 ">
+
+      <p>Welcome to Supply Trace</p>
+      <Button onClick={launchApp}>Launch App</Button>
+
     </main>
   )
 }

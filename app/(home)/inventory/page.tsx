@@ -1,9 +1,10 @@
 "use client"
 
-import ProductCard from '@/components/inventory/productCard'
+import ProductCard from '@/components/inventory/productCards'
 import React, { useState, useEffect } from 'react'
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
+import ProductCards from '@/components/inventory/productCards';
 
 
 
@@ -20,9 +21,15 @@ const Inventory = () => {
     });
 
     return (
-        <div className='py-10'>
-            <ProductCard />
-        </div>
+        <>
+            {
+                isConnected ? (
+                    <div className='py-10' >
+                        <ProductCards />
+                    </div >
+                ) : (<>Loading ...</>)
+            }
+        </>
     )
 }
 
