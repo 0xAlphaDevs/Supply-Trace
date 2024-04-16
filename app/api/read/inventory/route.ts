@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, res: Response) {
 
   console.log("Getting inventory for: ", walletAddress);
   try {
-    const result = await prisma.transactons.findMany({
+    const result = await prisma.transactions.findMany({
       where: {
         to: walletAddress,
         archive: false,

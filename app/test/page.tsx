@@ -18,13 +18,18 @@ const product: Product = {
 const transaction: Transaction = {
   attestation: {
     previousAttestationId: "",
-    data: "This is the first attestation",
+    productName: "Test Product",
+    productSerialNo: "123",
+    soldBy: "test",
+    boughtBy: "test",
+    grandTotal: 100,
+    taxRate: 0.1,
   },
   attestationId: "1",
   from: "test",
   to: "test",
   archived: false,
-  amount: 100,
+  transactionValue: 100,
   timestamp: new Date(),
 }
 

@@ -1,7 +1,7 @@
 // types.ts
 export interface Attestation {
   productName: string;
-  productSerailNo: string;
+  productSerialNo: string;
   soldBy: string;
   boughtBy: string;
   previousAttestationId: string;
@@ -11,6 +11,11 @@ export interface Attestation {
 
 export interface InventoryItem extends Attestation {
   attestationId: string;
+}
+
+export interface PastTransactions {
+  buyTransactions: Transaction[];
+  sellTransactions: Transaction[];
 }
 
 export interface Product {
@@ -26,7 +31,7 @@ export interface Transaction {
   from: string;
   to: string;
   archived: boolean;
-  amount: number;
+  transactionValue: number;
   timestamp: Date;
 }
 
