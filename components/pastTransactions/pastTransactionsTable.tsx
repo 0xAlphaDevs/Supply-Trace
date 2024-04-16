@@ -22,8 +22,18 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { transactions, } from "@/constants/transactions";
-import { PastTransactions } from "@/lib/types";
+import { combinedTransactions } from "@/constants/transactions";
+import { PastTransactions, Transaction } from "@/lib/types";
+
+enum TransactionType {
+    Buy = "Buy",
+    Sell = "Sell",
+}
+
+interface FinalTransaction extends Transaction {
+    type: TransactionType;
+    counterParty: string;
+}
 
 
 export function PastTransactionsTable() {
@@ -32,53 +42,84 @@ export function PastTransactionsTable() {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
 
-    const columns: ColumnDef<PastTransactions>[] = [
+    // Make buy and sell transactions distinct and finally combine them
+    const buyTransactions = combinedTransactions.buyTransactions.map((transaction) => ({
+        ...transaction,
+        type: TransactionType.Buy,
+        counterParty: transaction.from,
+    }));
+
+    const sellTransactions = combinedTransactions.sellTransactions.map((transaction) => ({
+        ...transaction,
+        type: TransactionType.Sell,
+        counterParty: transaction.to,
+    }));
+
+    const finalTransactions: FinalTransaction[] = [...buyTransactions, ...sellTransactions]
+
+    const columns: ColumnDef<FinalTransaction>[] = [
         {
             accessorKey: "attestationId",
             header: "Attestation Id",
             cell: ({ row }) => {
-                const proposalId = parseInt(row.getValue("attestationId"));
-                return <div className="capitalize">{proposalId}</div>;
+                const attestationId = parseInt(row.getValue("attestationId"));
+                return <div className="capitalize">{attestationId}</div>;
             },
         },
         {
-            accessorKey: "transactionType",
+            accessorKey: "type",
             header: "Transaction Type",
-            cell: ({ row }) => <div className="">{row.getValue("transactionType")}</div>,
+            cell: ({ row }) => <div className="">{row.getValue("type")}</div>,
         },
         {
-            accessorKey: "date",
+            accessorKey: "timestamp",
             header: "Date",
-            cell: ({ row }) => (
-                <div className=" font-semibold px-2 bg-orange-50 hover:text-white hover:bg-orange-900 inline-block rounded-full ">
-                    {row.getValue("date")}
-                </div>
-            ),
+            cell: ({ row }) => {
+                const date = new Date(row.getValue("timestamp"));
+                const dayMonthYear = date.toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                });
+                const time = date.toLocaleTimeString("en-GB", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                });
+                return (
+                    <div className="flex flex-col">
+                        <div>{dayMonthYear}</div>
+                        <div>{time}</div>
+                    </div>
+                );
+            }
+
         },
         {
             accessorKey: "counterParty",
             header: "Counter Party",
             cell: ({ row }) => (
-                <div className="lowercase">{row.getValue("createdBy")}</div>
+                <div className="lowercase">{row.getValue("counterParty")}</div>
             ),
         },
         {
-            accessorKey: "bid",
+            accessorKey: "transactionValue",
             header: () => <div className="">Transaction Value</div>,
             cell: ({ row }) => {
-                const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
+                const amount = parseFloat(row.getValue("transactionValue"));
                 const formatted = new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
                 }).format(amount);
 
-                return <div className=" font-medium">{formatted} GHO</div>;
+                return <div className=" font-medium">{formatted} </div>;
             },
         },
     ];
 
+
     const table = useReactTable({
-        data: transactions,
+        data: finalTransactions,
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
@@ -101,8 +142,8 @@ export function PastTransactionsTable() {
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Search a transaction by Id..."
-                    value={(table.getColumn("proposalId")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) => table.getColumn("proposalId")?.setFilterValue(event.target.value)}
+                    value={(table.getColumn("attestationId")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) => table.getColumn("attestationId")?.setFilterValue(event.target.value)}
                     className="max-w-sm w-96 font-semibold border-orange-900 "
                 />
                 <DropdownMenu>
