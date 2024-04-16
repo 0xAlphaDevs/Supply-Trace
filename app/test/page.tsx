@@ -7,6 +7,7 @@ import { updateTransaction } from "@/lib/helpers/updateTransaction"
 import { Product, Transaction } from "@/lib/types"
 import { getAttestation } from "@/lib/helpers/getAttestation"
 import { verifyHistory } from "@/lib/helpers/verifyHistory"
+import { createAttestation } from "@/lib/helpers/createAttestation"
 
 const product: Product = {
   name: "Test Product",
@@ -36,8 +37,11 @@ const transaction: Transaction = {
 const Page = () => {
 
   // create a transaction for attestation
-  async function handleCreateTransaction() {
-    console.log("Creating transaction");
+  async function handleSellTransaction() {
+    console.log("Selling ...");
+    // create attestation on-chain
+    const attestation = await createAttestation(transaction.attestation, "0x123WALLET", "0")
+    // save transaction obj to db
     const res = await createTransaction(transaction)
     console.log(res)
   }
@@ -73,8 +77,8 @@ const Page = () => {
 
   return (
     <div className="flex flex-col p-16 justify-center items-center gap-4">
-      <Button onClick={handleCreateTransaction} className="">
-        Create Transaction
+      <Button onClick={handleSellTransaction} className="">
+        Sell Transaction
       </Button>
       <Button onClick={handleCreateProduct} className="">
         Create Product
