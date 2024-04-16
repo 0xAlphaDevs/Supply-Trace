@@ -71,6 +71,9 @@ const Page = () => {
       <Button onClick={handleCreateTransaction} className="">
         Create Transaction
       </Button>
+      <Button onClick={handleCreateProduct} className="">
+        Create Product
+      </Button>
       <Button onClick={handleUpdateTransaction} className="">
         Update Transaction
       </Button>

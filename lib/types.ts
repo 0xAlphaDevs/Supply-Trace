@@ -1,7 +1,16 @@
 // types.ts
 export interface Attestation {
+  productName: string;
+  productSerailNo: string;
+  soldBy: string;
+  boughtBy: string;
   previousAttestationId: string;
-  data: string;
+  grandTotal: number;
+  taxRate: number;
+}
+
+export interface InventoryItem extends Attestation {
+  attestationId: string;
 }
 
 export interface Product {
