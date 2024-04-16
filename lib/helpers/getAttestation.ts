@@ -18,7 +18,7 @@ export async function getAttestation(attestationId: string) {
     const res: Attestation = await signProtocolClient.getAttestation(
       attestationId
     );
-    console.log(res);
+    // console.log(res);
     return res;
   } catch (error) {
     console.error(error);

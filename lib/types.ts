@@ -19,10 +19,11 @@ export interface PastTransactions {
 }
 
 export interface Product {
-  name: string;
-  price: number;
+  productName: string;
+  productSerialNo: string;
+  grandTotal: number;
   taxRate: number;
-  vendor: string;
+  vendorWalletAddress: string;
 }
 
 export interface Transaction {

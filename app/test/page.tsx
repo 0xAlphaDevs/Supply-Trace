@@ -1,4 +1,5 @@
 "use client"
+
 import React from "react"
 import { Button } from "@/components/ui/button"
 import { createTransaction } from "@/lib/helpers/createTransaction"
@@ -10,40 +11,46 @@ import { verifyHistory } from "@/lib/helpers/verifyHistory"
 import { createAttestation } from "@/lib/helpers/createAttestation"
 
 const product: Product = {
-  name: "Test Product",
-  price: 100,
+  productName: "Test Product",
+  productSerialNo: "1234ASDFGH",
+  grandTotal: 100,
   taxRate: 0.1,
-  vendor: "Test Vendor",
+  vendorWalletAddress: "0x1",
 }
 
 const transaction: Transaction = {
   attestation: {
-    previousAttestationId: "",
-    productName: "Test Product",
-    productSerialNo: "123",
-    soldBy: "test",
-    boughtBy: "test",
-    grandTotal: 100,
-    taxRate: 0.1,
+    previousAttestationId: "0x52",
+    productName: "Test Product 1", // product name
+    productSerialNo: "4567NYUIOP", // product serial number
+    soldBy: "0x2",
+    boughtBy: "0x3",
+    grandTotal: 120,
+    taxRate: 10, // 10%
   },
-  attestationId: "1",
-  from: "test",
-  to: "test",
+  attestationId: "0x",
+  from: "0x2",
+  to: "0x3",
   archived: false,
-  transactionValue: 100,
+  transactionValue: 120,
   timestamp: new Date(),
 }
 
 const Page = () => {
 
   // create a transaction for attestation
-  async function handleSellTransaction() {
+  async function handleSellTransaction(attestationId: string) {
     console.log("Selling ...");
-    // create attestation on-chain
-    const attestation = await createAttestation(transaction.attestation, "0x123WALLET", "0")
+    // create attestation on-chain ,(attestation, wallet, linkedAttestationId)
+    // const attestation = await createAttestation(transaction.attestation, wallet, attestationId)
+    // console.log(attestation)
+    if (attestationId !== "") {
+      console.log("Updating transaction");
+      await updateTransaction(attestationId)
+    }
     // save transaction obj to db
-    const res = await createTransaction(transaction)
-    console.log(res)
+    const res = await createTransaction({ ...transaction, attestationId: "0x53" })
+    console.log("saved transaction to database : ", res)
   }
 
   // create a product 
@@ -56,28 +63,26 @@ const Page = () => {
   // update a transaction i.e. set archive to true
   async function handleUpdateTransaction() {
     console.log("Updating transaction");
-    const res = await updateTransaction("1", "test")
+    const res = await updateTransaction("1")
     console.log(res)
   }
 
   // update a transaction i.e. set archive to true
   async function handleGetAttestation() {
-    for (let i = 1; i < 10; i++) {
-      const result = await getAttestation(i.toString());
-      // process result if needed
-    }
+    const result = await getAttestation("0x53");
+    console.log(result);
   }
 
   // verify history
   async function handleVerifyHistory() {
     console.log("Verifying history");
-    const res = await verifyHistory("3");
+    const res = await verifyHistory("0x53");
     console.log(res);
   }
 
   return (
     <div className="flex flex-col p-16 justify-center items-center gap-4">
-      <Button onClick={handleSellTransaction} className="">
+      <Button onClick={() => handleSellTransaction("0x52")} className="">
         Sell Transaction
       </Button>
       <Button onClick={handleCreateProduct} className="">
@@ -92,9 +97,6 @@ const Page = () => {
       <Button onClick={handleVerifyHistory} className="">
         Verify History
       </Button>
-
-
-
     </div>
   )
 }

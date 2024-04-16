@@ -1,7 +1,4 @@
-export async function updateTransaction(
-  attestaionId: string,
-  walletAddress: string
-) {
+export async function updateTransaction(attestaionId: string) {
   const res = await fetch("/api/update/transaction", {
     method: "POST",
     headers: {
@@ -9,7 +6,6 @@ export async function updateTransaction(
     },
     body: JSON.stringify({
       attestaionId: attestaionId,
-      walletAddress: walletAddress,
     }),
   });
 
