@@ -1,5 +1,5 @@
 // types.ts
-export interface Attestation {
+export interface ProductAttestationSchema {
   productName: string;
   productSerialNo: string;
   soldBy: string;
@@ -9,7 +9,7 @@ export interface Attestation {
   taxRate: number;
 }
 
-export interface InventoryItem extends Attestation {
+export interface InventoryItem extends ProductAttestationSchema {
   attestationId: string;
 }
 
@@ -26,7 +26,7 @@ export interface Product {
 }
 
 export interface Transaction {
-  attestation: Attestation;
+  attestation: ProductAttestationSchema;
   attestationId: string;
   from: string;
   to: string;

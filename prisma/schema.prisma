@@ -14,14 +14,14 @@ generator client {
 }
 
 model Transactions {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  attestation   Json
-  attestationId String   @unique
-  from          String
-  to            String
-  archived      Boolean
-  amount        Float
-  timestamp     DateTime
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  attestation      Json
+  attestationId    String   @unique
+  from             String
+  to               String
+  archived         Boolean
+  transactionValue Float
+  timestamp        DateTime
 }
 
 model Products {

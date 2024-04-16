@@ -1,5 +1,5 @@
-import { Attestation } from "../types";
 import { getAttestation } from "./getAttestation";
+import { Attestation } from "@ethsign/sp-sdk";
 
 export async function verifyHistory(attestationId: string) {
   let chainOfAttestations = [];
@@ -11,16 +11,24 @@ export async function verifyHistory(attestationId: string) {
   } else {
     chainOfAttestations.push(attestation);
 
-    if (!attestation.previousAttestationId) {
+    if (!attestation.linkedAttestationId) {
+      // console.log("no linked attestation id");
       return chainOfAttestations;
     } else {
-      let previousAttestationId = attestation.previousAttestationId;
-      while (previousAttestationId !== "") {
-        const previousAttestation = await getAttestation(previousAttestationId);
-        chainOfAttestations.push(previousAttestation);
-        previousAttestationId = previousAttestation.previousAttestationId;
+      let linkedAttestationId = attestation.linkedAttestationId;
+      while (linkedAttestationId !== "") {
+        const previousAttestation = await getAttestation(linkedAttestationId);
+        // console.log("previous attestation: ", previousAttestation);
+
+        if (previousAttestation) {
+          // console.log(" updating chain of attestations");
+          chainOfAttestations.push(previousAttestation);
+          linkedAttestationId = previousAttestation.linkedAttestationId
+            ? previousAttestation.linkedAttestationId
+            : "";
+        }
       }
-      return chainOfAttestations;
     }
+    return chainOfAttestations;
   }
 }
