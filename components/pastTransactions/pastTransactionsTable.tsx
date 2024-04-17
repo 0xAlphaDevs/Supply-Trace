@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { combinedTransactions } from "@/constants/transactions";
 import { PastTransactions, Transaction } from "@/lib/types";
+import { Badge } from "../ui/badge";
 
 enum TransactionType {
     Buy = "Buy",
@@ -63,13 +64,13 @@ export function PastTransactionsTable() {
             header: "Attestation Id",
             cell: ({ row }) => {
                 const attestationId = parseInt(row.getValue("attestationId"));
-                return <div className="capitalize">{attestationId}</div>;
+                return <div className="font-medium">{attestationId}</div>;
             },
         },
         {
             accessorKey: "type",
             header: "Transaction Type",
-            cell: ({ row }) => <div className="">{row.getValue("type")}</div>,
+            cell: ({ row }) => <div className="font-medium">{row.getValue("type")}</div>,
         },
         {
             accessorKey: "timestamp",
@@ -87,10 +88,13 @@ export function PastTransactionsTable() {
                     second: "2-digit",
                 });
                 return (
-                    <div className="flex flex-col">
-                        <div>{dayMonthYear}</div>
-                        <div>{time}</div>
-                    </div>
+                    // <div className="flex flex-col">
+                    //     <div>{dayMonthYear}</div>
+                    //     <div>{time}</div>
+                    // </div>
+                    <Badge className="bg-indigo-950">
+                        {dayMonthYear}
+                    </Badge>
                 );
             }
 
@@ -99,7 +103,7 @@ export function PastTransactionsTable() {
             accessorKey: "counterParty",
             header: "Counter Party",
             cell: ({ row }) => (
-                <div className="lowercase">{row.getValue("counterParty")}</div>
+                <div className="font-medium">{row.getValue("counterParty")}</div>
             ),
         },
         {
@@ -112,7 +116,7 @@ export function PastTransactionsTable() {
                     currency: "USD",
                 }).format(amount);
 
-                return <div className=" font-medium">{formatted} </div>;
+                return <div className="font-medium">{formatted} </div>;
             },
         },
     ];
@@ -183,7 +187,7 @@ export function PastTransactionsTable() {
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="font-thin hover:text-orange-800 dark:hover:bg-purple-300/10 dark:hover:text-purple-50">
+                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="font-thin hover:text-orange-800 ">
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id} className="text-center">
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
