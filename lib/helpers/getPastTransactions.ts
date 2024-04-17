@@ -1,6 +1,10 @@
-export async function getPastTransactions(walletAddress: string) {
+import { PastTransactions } from "../types";
+
+export async function getPastTransactions(
+  walletAddress: string
+): Promise<PastTransactions> {
   const res = await fetch("/api/read/past-transactions", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -22,5 +26,5 @@ export async function getPastTransactions(walletAddress: string) {
     }
   }
 
-  return res.json();
+  return JSON.parse(await res.json()) as PastTransactions;
 }

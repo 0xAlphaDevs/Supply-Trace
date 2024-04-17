@@ -2,17 +2,17 @@ import { Transaction } from "@/lib/types";
 import prisma from "@/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, res: Response) {
+export async function POST(req: NextRequest, res: Response) {
   const { walletAddress }: { walletAddress: string } = await req.json();
 
   console.log("Getting past transactions for: ", walletAddress);
   try {
-    const buyTransactions = await prisma.transactons.findMany({
+    const buyTransactions = await prisma.transactions.findMany({
       where: {
         to: walletAddress,
       },
     });
-    const sellTransactions = await prisma.transactons.findMany({
+    const sellTransactions = await prisma.transactions.findMany({
       where: {
         from: walletAddress,
       },

@@ -22,9 +22,11 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { combinedTransactions } from "@/constants/transactions";
+// import { combinedTransactions } from "@/constants/transactions";
 import { PastTransactions, Transaction } from "@/lib/types";
 import { Badge } from "../ui/badge";
+import { getPastTransactions } from "@/lib/helpers/getPastTransactions";
+import { useAccount } from "wagmi";
 
 enum TransactionType {
     Buy = "Buy",
@@ -38,25 +40,44 @@ interface FinalTransaction extends Transaction {
 
 
 export function PastTransactionsTable() {
+    const { address } = useAccount()
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
     const [rowSelection, setRowSelection] = React.useState({});
 
-    // Make buy and sell transactions distinct and finally combine them
-    const buyTransactions = combinedTransactions.buyTransactions.map((transaction) => ({
-        ...transaction,
-        type: TransactionType.Buy,
-        counterParty: transaction.from,
-    }));
+    const [loading, setLoading] = React.useState<boolean>(false)
+    const [transactions, setTransactions] = React.useState<FinalTransaction[]>([])
 
-    const sellTransactions = combinedTransactions.sellTransactions.map((transaction) => ({
-        ...transaction,
-        type: TransactionType.Sell,
-        counterParty: transaction.to,
-    }));
+    async function loadData() {
+        let combinedTransactions: PastTransactions = await getPastTransactions(address as string)
 
-    const finalTransactions: FinalTransaction[] = [...buyTransactions, ...sellTransactions]
+        // Make buy and sell transactions distinct and finally combine them
+        if (combinedTransactions.buyTransactions.length > 0 || combinedTransactions.sellTransactions.length > 0) {
+            const buyTransactions = combinedTransactions?.buyTransactions.map((transaction) => ({
+                ...transaction,
+                type: TransactionType.Buy,
+                counterParty: transaction.from,
+            }));
+
+            const sellTransactions = combinedTransactions?.sellTransactions.map((transaction) => ({
+                ...transaction,
+                type: TransactionType.Sell,
+                counterParty: transaction.to,
+            }));
+
+            const finalTransactions: FinalTransaction[] = [...buyTransactions, ...sellTransactions]
+            setTransactions(finalTransactions)
+        }
+
+        setLoading(false)
+    }
+
+    React.useEffect(() => {
+        setLoading(true)
+        loadData()
+    }, [])
+
 
     const columns: ColumnDef<FinalTransaction>[] = [
         {
@@ -127,9 +148,8 @@ export function PastTransactionsTable() {
         },
     ];
 
-
     const table = useReactTable({
-        data: finalTransactions,
+        data: transactions,
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
@@ -149,68 +169,71 @@ export function PastTransactionsTable() {
 
     return (
         <div className="w-full p-10 ">
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Search a transaction by Id..."
-                    value={(table.getColumn("attestationId")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) => table.getColumn("attestationId")?.setFilterValue(event.target.value)}
-                    className="max-w-sm w-96 font-semibold border-orange-900 "
-                />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto bg-orange-300  ">
-                            Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table.getAllColumns().filter((column) => column.getCanHide()).map((column) => (
-                            <DropdownMenuCheckboxItem
-                                key={column.id}
-                                className="capitalize"
-                                checked={column.getIsVisible()}
-                                onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                            >
-                                {column.id}
-                            </DropdownMenuCheckboxItem>
-                        ))}
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
+            {!loading ? <>
+                <div className="flex items-center py-4">
+                    <Input
+                        placeholder="Search a transaction by Id..."
+                        value={(table.getColumn("attestationId")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) => table.getColumn("attestationId")?.setFilterValue(event.target.value)}
+                        className="max-w-sm w-96 font-semibold border-orange-900 "
+                    />
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" className="ml-auto bg-orange-300  ">
+                                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            {table.getAllColumns().filter((column) => column.getCanHide()).map((column) => (
+                                <DropdownMenuCheckboxItem
+                                    key={column.id}
+                                    className="capitalize"
+                                    checked={column.getIsVisible()}
+                                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                                >
+                                    {column.id}
+                                </DropdownMenuCheckboxItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
 
-            <div className="rounded-md border z-10 shadow-md bg-orange-400 bg-opacity-20 my-4 z-80  ">
-                <Table>
-                    <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id} className="">
-                                {headerGroup.headers.map((header) => (
-                                    <TableHead key={header.id} className="font-bold text-center ">
-                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                                    </TableHead>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="font-thin hover:text-orange-800 ">
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="text-center">
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </TableCell>
+                <div className="rounded-md border z-10 shadow-md bg-orange-400 bg-opacity-20 my-4 z-80  ">
+                    <Table>
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id} className="">
+                                    {headerGroup.headers.map((header) => (
+                                        <TableHead key={header.id} className="font-bold text-center ">
+                                            {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                        </TableHead>
                                     ))}
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </div>
+                            ))}
+                        </TableHeader>
+                        <TableBody>
+                            {table.getRowModel().rows?.length ? (
+                                table.getRowModel().rows.map((row) => (
+                                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="font-thin hover:text-orange-800 ">
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell key={cell.id} className="text-center">
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={columns.length} className="h-24 text-center">
+                                        No results.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
+            </> : <div className="flex justify-center p-40 font-bold text-xl text-gray-600">Loading all past Transactions ...</div>}
+
         </div>
     );
 }
