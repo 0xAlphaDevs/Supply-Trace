@@ -29,76 +29,28 @@ import { Separator } from "../ui/separator";
 interface CreateSellForm {
     productName: string;
     productSerialNo: string;
-    grandTotal: number;
+    productTotal: number;
     taxRate: number;
     sellTo: string
 }
-const Sell = ({ attestationId }: { attestationId: string }) => {
+const Sell = ({ attestationId, productName, productSerialNo, productPrice, taxRate }: { attestationId: string, productName: string, productSerialNo: string, productPrice: number, taxRate: number }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [formData, setFormData] = useState<CreateSellForm>({
-        productName: "",
-        productSerialNo: "",
-        grandTotal: 0,
-        taxRate: 0,
+        productName: productName,
+        productSerialNo: productSerialNo,
+        productTotal: productPrice,
+        taxRate: taxRate,
         sellTo: "",
     });
 
-    function handleClick() {
-        // reset all state values
-        setFormData({
-            productName: "",
-            productSerialNo: "",
-            grandTotal: 0,
-            taxRate: 0,
-            sellTo: "",
-        });
-    }
-
-    const constructSellData = (
-        productName: string,
-        productSerialNo: string,
-        grandTotal: number,
-        taxRate: number,
-        sellTo: string,
-    ) => {
-        const currentDate = new Date().toLocaleDateString();
-        const currentTime = new Date().toLocaleTimeString();
-
-        const newSellData = {
-            productName: productName,
-            productSerialNo: productSerialNo,
-            grandTotal: grandTotal,
-            taxRate: taxRate,
-            sellTo: sellTo,
-        };
-        return newSellData;
-    };
-
     async function createSell() {
         try {
-            // setIsLoading(true);
-            const newSellData = constructSellData(
-                formData.productName,
-                formData.productSerialNo,
-                formData.grandTotal,
-                formData.taxRate,
-                formData.sellTo
-            );
-            console.log(" Data: ", newSellData);
+            // create attestaion and sell transaction here
 
-            // write({
-            //     args: [
-            //         newSellData.title,
-            //         newSellData.description,
-            //         newSellData.createdAt,
-            //         newSellData.tags,
-            //         Number(newSellData.budget) * 10 ** 18,
-            //     ],
-            // });
-            //   const result = await saveJobData(formData.title);
+            // on success show green tick and attestaion id and link to visit
 
-            // setIsLoading(false);
+
         } catch (error) {
             console.error("Error submitting record:", error);
             // setIsLoading(false);
@@ -135,30 +87,23 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                             <Label htmlFor="productName" className="text-left">
                                                 Product Name
                                             </Label>
-                                            <Select
-                                                onValueChange={(value: string) =>
+                                            <Input
+                                                id="productSerialNo"
+                                                placeholder="Enter product name"
+                                                className="col-span-3"
+                                                value={formData.productName}
+                                                onChange={(e: { target: { value: any } }) =>
                                                     setFormData({
                                                         ...formData,
-                                                        productName: value,
+                                                        productName: e.target.value,
                                                     })
                                                 }
                                                 required
-                                                name="userType"
-                                            >
-                                                <SelectTrigger className="col-span-3">
-                                                    <SelectValue placeholder="Select product name" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        <SelectItem value="product1">
-                                                            Product 1
-                                                        </SelectItem>
-                                                        <SelectItem value="product2">Product 2</SelectItem>
-                                                        <SelectItem value="product3">Product 3</SelectItem>
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
+                                                disabled
+                                            />
+
                                         </div>
+
                                         <div className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="productSerialNo" className="text-left">
                                                 Product Serial No
@@ -175,23 +120,24 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                                     })
                                                 }
                                                 required
+                                                disabled
                                             />
 
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
                                             <Label htmlFor="grandTotal" className="text-left">
-                                                Grand Total
+                                                Selling Price
                                             </Label>
                                             <Input
                                                 id="grandTotal"
                                                 type="number"
                                                 placeholder="Enter product serial no"
                                                 className="col-span-3"
-                                                value={formData.grandTotal}
+                                                value={formData.productTotal}
                                                 onChange={(e: { target: { value: any } }) =>
                                                     setFormData({
                                                         ...formData,
-                                                        grandTotal: e.target.value,
+                                                        productTotal: e.target.value,
                                                     })
                                                 }
                                                 required
@@ -215,6 +161,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                                     })
                                                 }
                                                 required
+                                                disabled
                                             />
 
                                         </div>
@@ -237,7 +184,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                             />
 
                                         </div>
-                                        <div className="inline-block text-center py-4"><Button onClick={handleClick} type="submit" className="bg-orange-400 hover:bg-orange-500" >Sell</Button></div>
+                                        <div className="inline-block text-center py-4"><Button type="submit" className="bg-orange-400 hover:bg-orange-500" >Sell</Button></div>
                                     </div>
                                 </form>
                             </div>

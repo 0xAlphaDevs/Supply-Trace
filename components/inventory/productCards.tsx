@@ -106,7 +106,7 @@ const ProductCards = () => {
                     <Button>Sell</Button>
                   </DialogTrigger>
                   <DialogContent className=" max-w-[60%]">
-                    <Sell attestationId={item.attestationId} />
+                    <Sell attestationId={item.attestationId} productName={item.productName} productSerialNo={item.productSerialNo} productPrice={item.grandTotal} taxRate={item.taxRate} />
                   </DialogContent>
                 </Dialog>
               </div>
