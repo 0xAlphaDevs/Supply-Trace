@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
+import { verifyHistory } from "@/lib/helpers/verifyHistory";
 
 
 
@@ -21,53 +22,13 @@ const VerifyForm = () => {
     });
 
 
-    // const { data, isSuccess, isLoading, write } = useContractWrite({
-    //     address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
-    //     abi: deworkContract.abi,
-    //     functionName: "createJob",
-    //     args: [],
-    // });
-
-    function handleClick() {
-        // reset all state values
-        setFormData({
-            attestationId: "",
-        });
-    }
-
-    const constructJobData = (
-        attestationId: string,
-
-    ) => {
-        const currentDate = new Date().toLocaleDateString();
-        const currentTime = new Date().toLocaleTimeString();
-
-        const newJobData = {
-            attestationId: attestationId,
-        };
-        return newJobData;
-    };
-
-    async function createJob() {
+    async function verifyProductHistory() {
         try {
-            // setIsLoading(true);
-            const newJobData = constructJobData(
-                formData.attestationId,
-            );
-            console.log(" Data: ", newJobData);
+            const res = await verifyHistory(formData.attestationId)
+            console.log(res);
+            setIsSuccess(true)
+            setIsLoading(false)
 
-            // write({
-            //     args: [
-            //         newJobData.title,
-            //         newJobData.description,
-            //         newJobData.createdAt,
-            //         newJobData.tags,
-            //         Number(newJobData.budget) * 10 ** 18,
-            //     ],
-            // });
-            //   const result = await saveJobData(formData.title);
-
-            // setIsLoading(false);
         } catch (error) {
             console.error("Error submitting record:", error);
             // setIsLoading(false);
@@ -76,15 +37,14 @@ const VerifyForm = () => {
 
     const handleSubmitRequest = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        console.log("Creating request...");
+        setIsLoading(true)
+        console.log("Verifying ...");
         console.log("Form Data: ", formData);
-        await createJob();
+        await verifyProductHistory();
     };
 
     return (
         <div className="flex flex-col items-center text-left pt-24">
-            <p className="text-4xl font-semibold py-4">Verify Product</p>
-            <p className="font-light"> Enter Attestaion Id to verify a product. </p>
 
             <div className="sm:max-w-[50%] w-[40%]">
                 {isLoading ? (
@@ -95,7 +55,9 @@ const VerifyForm = () => {
                 ) : (
                     <>
                         {!isSuccess ? (
-                            <div className="">
+                            <div className="flex flex-col items-center text-left">
+                                <p className="text-4xl font-semibold py-4">Verify Product</p>
+                                <p className="font-light"> Enter Attestaion Id to verify a product. </p>
                                 <Separator className="my-4 bg-orange-200" />
                                 <form onSubmit={handleSubmitRequest}>
                                     <div className="grid gap-4 py-4">
@@ -118,7 +80,7 @@ const VerifyForm = () => {
                                             />
                                         </div>
 
-                                        <div className="inline-block text-center py-4"><Button onClick={handleClick} type="submit" className="bg-orange-400 hover:bg-orange-500" >Verify Product</Button></div>
+                                        <div className="inline-block text-center py-4"><Button type="submit" className="bg-orange-400 hover:bg-orange-500" >Verify Product</Button></div>
                                     </div>
                                 </form>
                             </div>
@@ -126,7 +88,10 @@ const VerifyForm = () => {
                             <div className="flex flex-col gap-4 items-center">
                                 <CheckCircledIcon className="w-20 h-20 text-green-500" />
                                 <p>Verified product Successfully </p>
+                                <Button onClick={() => setIsSuccess(false)} className="bg-orange-400 hover:bg-orange-500" >Verify another Product</Button>
+                                <p className="text-lg font-thin">All attestation history displayed below</p>
                             </div>
+
                         )}
                     </>
                 )}

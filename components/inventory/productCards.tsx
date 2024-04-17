@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { cn } from "@/lib/utils";
+import { hexToDecimal } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { items } from '@/constants/items';
 import { InventoryItem } from "@/lib/types"
@@ -63,7 +63,7 @@ const ProductCards = () => {
               <CardTitle className='flex justify-between'>
                 <h2 className="text-xl font-bold">{item.productName}</h2>
                 <div className='flex gap-2 text-sm items-center'>Attestation  ID: <Badge className="px-2 py-1 text-sm">
-                  {item.attestationId}
+                  {hexToDecimal(item.attestationId)}
                 </Badge></div>
 
               </CardTitle>
