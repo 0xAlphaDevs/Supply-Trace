@@ -138,7 +138,7 @@ export function PastTransactionsTable() {
     });
 
     return (
-        <div className="w-full p-12 ">
+        <div className="w-full p-10 ">
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Search a transaction by Id..."
