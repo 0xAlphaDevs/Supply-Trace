@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <div className="flex justify-between">
       <div className="flex gap-48 items-center">
-        <Link href="/" className="text-xl font-bold">Supply Trace</Link>
+        <Link href="/app" className="text-xl font-bold">Supply Trace</Link>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
