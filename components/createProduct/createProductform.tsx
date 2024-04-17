@@ -8,8 +8,8 @@ import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
 
 interface CreateJobForm {
-    name: string;
-    price: number;
+    productName: string;
+    productPrice: number;
     taxRate: number;
 }
 
@@ -17,60 +17,60 @@ const CreateProductForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [formData, setFormData] = useState<CreateJobForm>({
-        name: "",
-        price: 0,
+        productName: "",
+        productPrice: 0,
         taxRate: 0,
     });
 
     // const { data, isSuccess, isLoading, write } = useContractWrite({
     //     address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
     //     abi: deworkContract.abi,
-    //     functionName: "createJob",
+    //     functionName: "createProductForm",
     //     args: [],
     // });
 
     function handleClick() {
         // reset all state values
         setFormData({
-            name: "",
-            price: 0,
+            productName: "",
+            productPrice: 0,
             taxRate: 0,
         });
     }
 
-    const constructJobData = (
-        name: string,
-        price: number,
+    const constructProductForm = (
+        productName: string,
+        productPrice: number,
         taxRate: number,
     ) => {
         const currentDate = new Date().toLocaleDateString();
         const currentTime = new Date().toLocaleTimeString();
 
-        const newJobData = {
-            name: name,
-            price: price,
+        const newProductFormData = {
+            productName: productName,
+            productPrice: productPrice,
             taxRate: taxRate,
         };
-        return newJobData;
+        return newProductFormData;
     };
 
-    async function createJob() {
+    async function createProductForm() {
         try {
             // setIsLoading(true);
-            const newJobData = constructJobData(
-                formData.name,
-                formData.price,
+            const newProductFormData = constructProductForm(
+                formData.productName,
+                formData.productPrice,
                 formData.taxRate,
             );
-            console.log(" Data: ", newJobData);
+            console.log(" Data: ", newProductFormData);
 
             // write({
             //     args: [
-            //         newJobData.title,
-            //         newJobData.description,
-            //         newJobData.createdAt,
-            //         newJobData.tags,
-            //         Number(newJobData.budget) * 10 ** 18,
+            //         newProductFormData.title,
+            //         newProductFormData.description,
+            //         newProductFormData.createdAt,
+            //         newProductFormData.tags,
+            //         Number(newProductFormData.budget) * 10 ** 18,
             //     ],
             // });
             //   const result = await saveJobData(formData.title);
@@ -84,15 +84,15 @@ const CreateProductForm = () => {
 
     const handleSubmitRequest = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        console.log("Creating request...");
+        console.log("Creating product form...");
         console.log("Form Data: ", formData);
-        await createJob();
+        await createProductForm();
     };
 
     return (
         <div className="flex flex-col items-center text-left pt-16">
             <p className="text-4xl font-semibold py-4">Create New Product</p>
-            <p className="font-light"> Enter details to create a new job. </p>
+            <p className="font-light"> Enter details for a new product to sell. </p>
 
             <div className="sm:max-w-[50%] w-[30%]">
                 {isLoading ? (
@@ -108,36 +108,37 @@ const CreateProductForm = () => {
                                 <form onSubmit={handleSubmitRequest}>
                                     <div className="grid gap-4 py-4">
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="name" className="text-right">
-                                                Name
+                                            <Label htmlFor="productName" className="text-right">
+                                                Product Name
                                             </Label>
                                             <Input
-                                                id="name"
-                                                placeholder="Enter product name"
+                                                id="productName"
+                                                placeholder="Enter product productName"
                                                 className="col-span-3"
-                                                value={formData.name}
+                                                value={formData.productName}
                                                 onChange={(e: { target: { value: any } }) =>
                                                     setFormData({
                                                         ...formData,
-                                                        name: e.target.value,
+                                                        productName: e.target.value,
                                                     })
                                                 }
                                                 required
                                             />
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="price" className="text-right">
-                                                Price
+                                            <Label htmlFor="productPrice" className="text-right">
+                                                Product Price
                                             </Label>
                                             <Input
-                                                id="price"
-                                                placeholder="Enter product price"
+                                                id="productPrice"
+                                                type="number"
+                                                placeholder="Enter product productPrice"
                                                 className="col-span-3"
-                                                value={formData.price}
+                                                value={formData.productPrice}
                                                 onChange={(e: { target: { value: any } }) =>
                                                     setFormData({
                                                         ...formData,
-                                                        price: e.target.value,
+                                                        productPrice: e.target.value,
                                                     })
                                                 }
                                                 required

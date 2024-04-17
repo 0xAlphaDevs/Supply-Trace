@@ -184,6 +184,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                             </Label>
                                             <Input
                                                 id="grandTotal"
+                                                type="number"
                                                 placeholder="Enter product serial no"
                                                 className="col-span-3"
                                                 value={formData.grandTotal}
@@ -203,6 +204,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                             </Label>
                                             <Input
                                                 id="taxRate"
+                                                type="number"
                                                 placeholder="Enter tax rate"
                                                 className="col-span-3"
                                                 value={formData.taxRate}
