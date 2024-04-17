@@ -160,7 +160,7 @@ const CreateProductForm = () => {
                                                 required
                                             />
                                         </div>
-                                        <div className="inline-block text-center py-4"><Button type="submit" className="bg-orange-400 hover:bg-orange-500" >Create Product</Button></div>
+                                        <div className="inline-block text-center py-4"><Button type="submit" className="bg-orange-500 hover:bg-orange-300" >Create Product</Button></div>
                                     </div>
                                 </form>
                             </div>

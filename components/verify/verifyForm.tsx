@@ -88,7 +88,7 @@ const VerifyForm = () => {
                             <div className="flex flex-col gap-4 items-center">
                                 <CheckCircledIcon className="w-20 h-20 text-green-500" />
                                 <p>Verified product Successfully </p>
-                                <Button onClick={() => setIsSuccess(false)} className="bg-orange-400 hover:bg-orange-500" >Verify another Product</Button>
+                                <Button onClick={() => setIsSuccess(false)} className="bg-orange-500 hover:bg-orange-300" >Verify another Product</Button>
                                 <p className="text-lg font-thin">TO DO :All attestation history displayed below</p>
                             </div>
 

@@ -120,7 +120,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
             <p className="text-4xl text-center font-semibold"> Inventory</p>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button><PlusCircledIcon className="mt-0.5" />
+                    <Button className="bg-orange-500 hover:bg-orange-300"><PlusCircledIcon className="mt-0.5" />
                         <span className="w-2"> </span>Sell New Item</Button>
                 </DialogTrigger>
 

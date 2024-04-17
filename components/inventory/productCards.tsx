@@ -25,6 +25,7 @@ import Sell from './sell';
 import ViewHistory from './viewHistory';
 import { useAccount } from 'wagmi';
 import { getInventory } from '@/lib/helpers/getInventory';
+import { Skeleton } from '../ui/skeleton';
 
 const ProductCards = () => {
 
@@ -40,7 +41,7 @@ const ProductCards = () => {
   };
 
   async function loadData() {
-    const res = await getInventory(address as string)
+    const res = await getInventory("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266" as string)
     // parse json
     const inventory = JSON.parse(res)
     console.log(inventory);
@@ -56,13 +57,15 @@ const ProductCards = () => {
 
   return (
     <div className="p-8 grid gap-8 ">
-      {loading ? <>Loading ...</> : <>
+      {loading ? <div className='flex justify-center'>
+        Loading ...
+      </div> : <>
         {inventoryItems.map((item: InventoryItem, index) => (
-          <Card key={index} className="p-4 shadow-md">
+          <Card key={index} className="p-4 shadow-md bg-orange-400 bg-opacity-20">
             <CardHeader>
               <CardTitle className='flex justify-between'>
                 <h2 className="text-xl font-bold">{item.productName}</h2>
-                <div className='flex gap-2 text-sm items-center'>Attestation  ID: <Badge className="px-2 py-1 text-sm">
+                <div className='flex gap-2 text-sm items-center'>Attestation  ID: <Badge className="px-2 py-1 text-sm bg-indigo-950">
                   {(item.attestationId)}
                 </Badge></div>
 
@@ -74,7 +77,7 @@ const ProductCards = () => {
                 <div className="flex gap-4">
                   <div className="text-lg font-light">Product Serial No :</div>
                   <Badge
-                    className="text-sm  "
+                    className="text-sm bg-indigo-950 "
                   >
                     {item.productSerialNo}
                   </Badge>
@@ -95,7 +98,7 @@ const ProductCards = () => {
               <div className="flex gap-4">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button>View History</Button>
+                    <Button className='bg-orange-500 hover:bg-orange-300'>View History</Button>
                   </DialogTrigger>
                   <DialogContent className=" max-w-[60%] h-[75%] overflow-y-auto">
                     <ViewHistory attestationId={item.attestationId} />
@@ -103,7 +106,7 @@ const ProductCards = () => {
                 </Dialog>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button>Sell</Button>
+                    <Button className='bg-orange-500 hover:bg-orange-300'>Sell</Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-[60%]">
                     <Sell attestationId={item.attestationId} productName={item.productName} productSerialNo={item.productSerialNo} productPrice={item.grandTotal} taxRate={item.taxRate} />

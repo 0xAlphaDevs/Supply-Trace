@@ -31,19 +31,15 @@ const ViewHistory = ({ attestationId }: { attestationId: string }) => {
             {/* //Skeleton */}
             {isLoading && (
                 <div className='flex flex-col gap-16 pt-8'>
-                    <div className="flex items-center space-x-4">
-                        <Skeleton className="h-24 w-24 rounded-full bg-slate-200" />
-                        <div className="space-y-2">
-                            <Skeleton className="h-10 w-[250px] bg-slate-200" />
-                            <Skeleton className="h-10 w-[200px] bg-slate-200" />
-                        </div>
+                    <div className="flex items-center">
+                        <Skeleton className="h-40 w-full rounded-3xl bg-slate-200" />
                     </div>
-                    <div className="flex items-center space-x-4">
-                        <Skeleton className="h-24 w-24 rounded-full bg-slate-200" />
-                        <div className="space-y-2">
-                            <Skeleton className="h-10 w-[250px] bg-slate-200" />
-                            <Skeleton className="h-10 w-[200px] bg-slate-200" />
-                        </div>
+                    <div className="flex justify-center">
+                        <Skeleton className="h-12 w-12 rounded-full bg-slate-200" />
+                    </div>
+                    <div className="flex items-center">
+                        <Skeleton className="h-40 w-full rounded-3xl bg-slate-200" />
+
                     </div>
                 </div>
             )}
