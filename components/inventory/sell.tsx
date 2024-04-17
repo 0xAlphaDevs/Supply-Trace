@@ -26,7 +26,7 @@ import { Separator } from "../ui/separator";
 
 // dropdown select product [product name] , [product serial no], grand total, [tax rate], sell to
 
-interface CreateJobForm {
+interface CreateSellForm {
     productName: string;
     productSerialNo: string;
     grandTotal: number;
@@ -36,7 +36,7 @@ interface CreateJobForm {
 const Sell = ({ attestationId }: { attestationId: string }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [formData, setFormData] = useState<CreateJobForm>({
+    const [formData, setFormData] = useState<CreateSellForm>({
         productName: "",
         productSerialNo: "",
         grandTotal: 0,
@@ -55,7 +55,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
         });
     }
 
-    const constructJobData = (
+    const constructSellData = (
         productName: string,
         productSerialNo: string,
         grandTotal: number,
@@ -65,35 +65,35 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
         const currentDate = new Date().toLocaleDateString();
         const currentTime = new Date().toLocaleTimeString();
 
-        const newJobData = {
+        const newSellData = {
             productName: productName,
             productSerialNo: productSerialNo,
             grandTotal: grandTotal,
             taxRate: taxRate,
             sellTo: sellTo,
         };
-        return newJobData;
+        return newSellData;
     };
 
-    async function createJob() {
+    async function createSell() {
         try {
             // setIsLoading(true);
-            const newJobData = constructJobData(
+            const newSellData = constructSellData(
                 formData.productName,
                 formData.productSerialNo,
                 formData.grandTotal,
                 formData.taxRate,
                 formData.sellTo
             );
-            console.log(" Data: ", newJobData);
+            console.log(" Data: ", newSellData);
 
             // write({
             //     args: [
-            //         newJobData.title,
-            //         newJobData.description,
-            //         newJobData.createdAt,
-            //         newJobData.tags,
-            //         Number(newJobData.budget) * 10 ** 18,
+            //         newSellData.title,
+            //         newSellData.description,
+            //         newSellData.createdAt,
+            //         newSellData.tags,
+            //         Number(newSellData.budget) * 10 ** 18,
             //     ],
             // });
             //   const result = await saveJobData(formData.title);
@@ -107,18 +107,18 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
 
     const handleSubmitRequest = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        console.log("Creating request...");
+        console.log("Selling Item...");
         console.log("Form Data: ", formData);
-        await createJob();
+        await createSell();
     };
 
 
     return (
         <div className="flex flex-col items-center text-left">
-            <p className="text-4xl font-semibold py-4">Sell Product</p>
-            <p className="font-light"> Enter details to sell a product. </p>
+            <p className="text-4xl font-semibold">Sell Product</p>
+            <p className="font-light text-sm"> Enter details to sell a product. </p>
 
-            <div className="sm:max-w-[50%]">
+            <div className="mx-40">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-40 gap-4">
                         {/* <Loader /> */}
@@ -132,7 +132,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                 <form onSubmit={handleSubmitRequest}>
                                     <div className="grid gap-4 py-4">
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="productName" className="text-right">
+                                            <Label htmlFor="productName" className="text-left">
                                                 Product Name
                                             </Label>
                                             <Select
@@ -160,7 +160,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
                                             </Select>
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="productSerialNo" className="text-right">
+                                            <Label htmlFor="productSerialNo" className="text-left">
                                                 Product Serial No
                                             </Label>
                                             <Input
@@ -179,7 +179,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
 
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="grandTotal" className="text-right">
+                                            <Label htmlFor="grandTotal" className="text-left">
                                                 Grand Total
                                             </Label>
                                             <Input
@@ -198,7 +198,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
 
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="taxRate" className="text-right">
+                                            <Label htmlFor="taxRate" className="text-left">
                                                 Tax Rate
                                             </Label>
                                             <Input
@@ -217,7 +217,7 @@ const Sell = ({ attestationId }: { attestationId: string }) => {
 
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label htmlFor="sellTo" className="text-right">
+                                            <Label htmlFor="sellTo" className="text-left">
                                                 Sell to
                                             </Label>
                                             <Input
