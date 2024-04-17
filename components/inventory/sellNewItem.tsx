@@ -145,7 +145,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
                                         <form onSubmit={handleSubmitRequest}>
                                             <div className="grid gap-4 py-4">
                                                 <div className="grid grid-cols-4 items-center gap-4">
-                                                    <Label htmlFor="productName" className="text-left">
+                                                    <Label htmlFor="productName" className="text-right">
                                                         Product Name
                                                     </Label>
                                                     <Select
@@ -173,7 +173,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
                                                     </Select>
                                                 </div>
                                                 <div className="grid grid-cols-4 items-center gap-4">
-                                                    <Label htmlFor="productSerialNo" className="text-left">
+                                                    <Label htmlFor="productSerialNo" className="text-right">
                                                         Product Serial No
                                                     </Label>
                                                     <Input
@@ -192,7 +192,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
 
                                                 </div>
                                                 <div className="grid grid-cols-4 items-center gap-4">
-                                                    <Label htmlFor="grandTotal" className="text-left">
+                                                    <Label htmlFor="grandTotal" className="text-right">
                                                         Grand Total
                                                     </Label>
                                                     <Input
@@ -212,7 +212,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
 
                                                 </div>
                                                 <div className="grid grid-cols-4 items-center gap-4">
-                                                    <Label htmlFor="taxRate" className="text-left">
+                                                    <Label htmlFor="taxRate" className="text-right">
                                                         Tax Rate
                                                     </Label>
                                                     <Input
@@ -232,7 +232,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
 
                                                 </div>
                                                 <div className="grid grid-cols-4 items-center gap-4">
-                                                    <Label htmlFor="sellTo" className="text-lrft">
+                                                    <Label htmlFor="sellTo" className="text-right">
                                                         Sell to
                                                     </Label>
                                                     <Input

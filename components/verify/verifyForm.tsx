@@ -83,7 +83,7 @@ const VerifyForm = () => {
             <p className="text-4xl font-semibold py-4">Verify Product</p>
             <p className="font-light"> Enter Attestaion Id to verify a product. </p>
 
-            <div className="sm:max-w-[50%] w-[30%]">
+            <div className="sm:max-w-[50%] w-[40%]">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-40 gap-4">
                         {/* <Loader /> */}

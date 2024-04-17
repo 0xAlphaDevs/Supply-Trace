@@ -94,7 +94,7 @@ const CreateProductForm = () => {
             <p className="text-4xl font-semibold py-4">Create New Product</p>
             <p className="font-light"> Enter details for a new product to sell. </p>
 
-            <div className="sm:max-w-[50%] w-[30%]">
+            <div className="sm:max-w-[50%] w-[40%]">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-40 gap-4">
                         {/* <Loader /> */}
@@ -113,7 +113,7 @@ const CreateProductForm = () => {
                                             </Label>
                                             <Input
                                                 id="productName"
-                                                placeholder="Enter product productName"
+                                                placeholder="Enter product name"
                                                 className="col-span-3"
                                                 value={formData.productName}
                                                 onChange={(e: { target: { value: any } }) =>
@@ -163,7 +163,7 @@ const CreateProductForm = () => {
                                                 required
                                             />
                                         </div>
-                                        <div className="inline-block text-center py-4"><Button onClick={handleClick} type="submit" className="bg-orange-400 hover:bg-orange-500" >Create</Button></div>
+                                        <div className="inline-block text-center py-4"><Button onClick={handleClick} type="submit" className="bg-orange-400 hover:bg-orange-500" >Create Product</Button></div>
                                     </div>
                                 </form>
                             </div>
