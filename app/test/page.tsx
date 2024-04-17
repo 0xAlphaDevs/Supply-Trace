@@ -9,11 +9,12 @@ import { Product, Transaction } from "@/lib/types"
 import { getAttestation } from "@/lib/helpers/getAttestation"
 import { verifyHistory } from "@/lib/helpers/verifyHistory"
 import { createAttestation } from "@/lib/helpers/createAttestation"
+import { getProducts } from "@/lib/helpers/getProducts"
 
 const product: Product = {
   productName: "Test Product",
   productSerialNo: "1234ASDFGH",
-  grandTotal: 100,
+  productPrice: 100,
   taxRate: 0.1,
   vendorWalletAddress: "0x1",
 }
@@ -54,10 +55,11 @@ const Page = () => {
   }
 
   // create a product 
-  async function handleCreateProduct() {
-    console.log("Creating product");
-    const res = await createProduct(product)
-    console.log(res)
+  async function handleGetProducts() {
+    console.log("Getting product for this vendor wallet :");
+    const res = await getProducts("0x5C4185b8cCA5198a94bF2B97569DEb2bbAF1f50C")
+    const products = JSON.parse(res)
+    console.log(products)
   }
 
   // update a transaction i.e. set archive to true
@@ -85,8 +87,8 @@ const Page = () => {
       <Button onClick={() => handleSellTransaction("0x52")} className="">
         Sell Transaction
       </Button>
-      <Button onClick={handleCreateProduct} className="">
-        Create Product
+      <Button onClick={handleGetProducts} className="">
+        Get Products
       </Button>
       <Button onClick={handleUpdateTransaction} className="">
         Update Transaction

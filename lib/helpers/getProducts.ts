@@ -1,6 +1,6 @@
 export async function getProducts(walletAddress: string) {
   const res = await fetch("/api/read/products", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },

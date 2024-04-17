@@ -25,11 +25,12 @@ model Transactions {
 }
 
 model Products {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  price   Float
-  taxRate Float
-  vendor  String
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  productName         String
+  productSerialNo     String
+  productPrice        Float
+  taxRate             Float
+  vendorWalletAddress String
 }
 
 model User {
