@@ -10,21 +10,20 @@ const ViewHistory = ({ attestationId }: { attestationId: string }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [history, setHistory] = useState<any[]>([]);
 
-    useEffect(() => {
-        async function fetchHistory() {
-            try {
-                setIsLoading(true);
-                const res = await verifyHistory("83");
-                setHistory(res); // Update state with fetched history data
-                setIsLoading(false);
-            } catch (error) {
-                console.error("Error fetching history:", error);
-                setIsLoading(false);
-            }
+    async function fetchHistory() {
+        try {
+            const res = await verifyHistory(attestationId);
+            setHistory(res); // Update state with fetched history data
+            setIsLoading(false);
+        } catch (error) {
+            console.error("Error fetching history:", error);
+            setIsLoading(false);
         }
-
+    }
+    useEffect(() => {
+        setIsLoading(true);
         fetchHistory();
-    }, [attestationId]);
+    }, []);
 
     return (
         <div className='flex flex-col items-center gap-8'>

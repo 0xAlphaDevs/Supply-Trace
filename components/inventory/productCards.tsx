@@ -40,7 +40,7 @@ const ProductCards = () => {
   };
 
   async function loadData() {
-    const res = await getInventory("0x3" as string) // TO DO : change with wallet address
+    const res = await getInventory(address as string)
     // parse json
     const inventory = JSON.parse(res)
     console.log(inventory);
@@ -63,7 +63,7 @@ const ProductCards = () => {
               <CardTitle className='flex justify-between'>
                 <h2 className="text-xl font-bold">{item.productName}</h2>
                 <div className='flex gap-2 text-sm items-center'>Attestation  ID: <Badge className="px-2 py-1 text-sm">
-                  {hexToDecimal(item.attestationId)}
+                  {(item.attestationId)}
                 </Badge></div>
 
               </CardTitle>
