@@ -117,7 +117,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
 
     return (
         <div className='px-8 flex justify-between'>
-            <p> Inventory</p>
+            <p className="text-4xl text-center font-semibold"> Inventory</p>
             <Dialog>
                 <DialogTrigger asChild>
                     <Button><PlusCircledIcon className="mt-0.5" />

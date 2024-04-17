@@ -97,7 +97,7 @@ const ProductCards = () => {
                   <DialogTrigger asChild>
                     <Button>View History</Button>
                   </DialogTrigger>
-                  <DialogContent className=" max-w-[60%] h-[70%]">
+                  <DialogContent className=" max-w-[60%] h-[75%]">
                     <ViewHistory attestationId={item.attestationId} />
                   </DialogContent>
                 </Dialog>
