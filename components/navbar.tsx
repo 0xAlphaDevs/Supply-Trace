@@ -31,7 +31,7 @@ const Navbar = () => {
                   className={cn(
                     navigationMenuTriggerStyle(),
                     pathname === ("/inventory")
-                      ? "bg-orange-300"
+                      ? "bg-orange-400"
                       : ""
                   )}
                 >
@@ -44,7 +44,7 @@ const Navbar = () => {
                 <NavigationMenuLink className={cn(
                   navigationMenuTriggerStyle(),
                   pathname === ("/create-product")
-                    ? "bg-orange-300"
+                    ? "bg-orange-400"
                     : ""
                 )}>
                   Create Product
@@ -56,7 +56,7 @@ const Navbar = () => {
                 <NavigationMenuLink className={cn(
                   navigationMenuTriggerStyle(),
                   pathname === ("/past-transactions")
-                    ? "bg-orange-300"
+                    ? "bg-orange-400"
                     : ""
                 )}>
                   Past Transactions
@@ -68,7 +68,7 @@ const Navbar = () => {
                 <NavigationMenuLink className={cn(
                   navigationMenuTriggerStyle(),
                   pathname === ("/verify")
-                    ? "bg-orange-300"
+                    ? "bg-orange-400"
                     : ""
                 )}>
                   Verify
