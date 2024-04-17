@@ -166,6 +166,7 @@ export function PastTransactionsTable() {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
+
             <div className="rounded-md border z-10 shadow-md bg-orange-400 bg-opacity-20 my-4 z-80  ">
                 <Table>
                     <TableHeader>
