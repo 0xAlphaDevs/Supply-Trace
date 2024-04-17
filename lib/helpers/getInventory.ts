@@ -1,6 +1,6 @@
 export async function getInventory(walletAddress: string) {
   const res = await fetch("/api/read/inventory", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -22,5 +22,5 @@ export async function getInventory(walletAddress: string) {
     }
   }
 
-  return res.json();
+  return await res.json();
 }

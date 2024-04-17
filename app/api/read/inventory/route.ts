@@ -1,9 +1,8 @@
+import { InventoryItem, Transaction } from "@/lib/types";
 import prisma from "@/prisma/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "nodejs";
-
-export async function GET(req: NextRequest, res: Response) {
+export async function POST(req: NextRequest, res: Response) {
   const { walletAddress }: { walletAddress: string } = await req.json();
 
   console.log("Getting inventory for: ", walletAddress);
@@ -11,10 +10,28 @@ export async function GET(req: NextRequest, res: Response) {
     const result = await prisma.transactions.findMany({
       where: {
         to: walletAddress,
-        archive: false,
+        archived: false,
       },
     });
-    return NextResponse.json(JSON.stringify(result), { status: 200 });
+
+    let inventory: InventoryItem[] = [];
+    result.forEach((item: Transaction) => {
+      // @ts-ignore
+      inventory.push({
+        productName: item.attestation.productName,
+        productSerialNo: item.attestation.productSerialNo,
+        soldBy: item.attestation.soldBy,
+        boughtBy: item.attestation.boughtBy,
+        attestationId: item.attestationId,
+        previousAttestationId: item.attestation.previousAttestationId,
+        grandTotal: item.attestation.grandTotal,
+        taxRate: item.attestation.taxRate,
+      });
+    });
+
+    // console.log("Inventory : ", inventory);
+
+    return NextResponse.json(JSON.stringify(inventory), { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
