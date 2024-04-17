@@ -70,7 +70,13 @@ export function PastTransactionsTable() {
         {
             accessorKey: "type",
             header: "Transaction Type",
-            cell: ({ row }) => <div className="font-medium">{row.getValue("type")}</div>,
+            cell: ({ row }) => {
+                const typeValue: string = row.getValue("type");
+                const type: TransactionType = typeValue as TransactionType;
+                const variant = type === TransactionType.Sell ? "destructive" : "secondary";
+                return (<Badge variant={variant}>{typeValue}</Badge>)
+
+            },
         },
         {
             accessorKey: "timestamp",

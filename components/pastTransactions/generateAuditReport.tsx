@@ -33,7 +33,7 @@ const GenerateAuditReport = () => {
       <p className="text-4xl text-center font-semibold"> Past Transactions</p>
       <Dialog>
         <DialogTrigger asChild>
-          <Button><PlusCircledIcon className="mt-0.5" />
+          <Button className="bg-orange-500 hover:bg-orange-300"><PlusCircledIcon className="mt-0.5" />
             <span className="w-2"> </span>Generate Audit report</Button>
         </DialogTrigger>
 
@@ -44,6 +44,7 @@ const GenerateAuditReport = () => {
               Enter details to genrate an audit report.
             </DialogDescription>
           </DialogHeader>
+          <Separator className="my-4 bg-orange-200" />
           <div className="mx-40">
             Functionality will be here
           </div>
