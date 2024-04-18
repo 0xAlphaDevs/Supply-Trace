@@ -49,7 +49,9 @@ const VerifyForm = () => {
             <div className="sm:max-w-[50%] w-[40%]">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-40 gap-4">
-                        {/* <Loader /> */}
+                        <div className="flex justify-center items-center">
+                            <div className="w-12 h-12 border-t-4 border-b-4 border-green-500 rounded-full animate-spin"></div>
+                        </div>
                         <p>Verifying Product ...</p>
                     </div>
                 ) : (
