@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
 import { verifyHistory } from "@/lib/helpers/verifyHistory";
 import ViewHistory from "../inventory/viewHistory";
@@ -22,9 +22,6 @@ const VerifyForm = () => {
     const [formData, setFormData] = useState<CreateJobForm>({
         attestationId: "",
     });
-    const [attestationHistory, setAttestationHistory] = useState<any[]>([]);
-
-
 
     async function verifyProductHistory() {
         try {

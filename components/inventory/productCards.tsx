@@ -8,18 +8,10 @@ import { Badge } from '../ui/badge';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  BadgeDollarSignIcon,
-  BookUser,
-  Briefcase,
-  Calendar,
-  DollarSign,
-} from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Sell from './sell';
 import ViewHistory from './viewHistory';
