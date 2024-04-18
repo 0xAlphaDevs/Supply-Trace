@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import AttestationHistoryCard from './attestationHistoryCard'
 import { verifyHistory } from "@/lib/helpers/verifyHistory";
 import { Link } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 const ViewHistory = ({ attestationId }: { attestationId: string }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -27,19 +28,19 @@ const ViewHistory = ({ attestationId }: { attestationId: string }) => {
 
     return (
         <div className='flex flex-col items-center gap-8'>
-            <p className='flex justify-center text-4xl font-semibold'>View History</p>
+            <p className='flex justify-center text-4xl font-semibold'>Product Attestaion History</p>
+            <Separator className=" bg-orange-200" />
             {/* //Skeleton */}
             {isLoading && (
                 <div className='flex flex-col gap-16 pt-8'>
                     <div className="flex items-center">
-                        <Skeleton className="h-40 w-full rounded-3xl bg-slate-200" />
+                        <Skeleton className="h-44 w-[750px] rounded-3xl bg-slate-200" />
                     </div>
                     <div className="flex justify-center">
                         <Skeleton className="h-12 w-12 rounded-full bg-slate-200" />
                     </div>
                     <div className="flex items-center">
-                        <Skeleton className="h-40 w-full rounded-3xl bg-slate-200" />
-
+                        <Skeleton className="h-44 w-[750px] rounded-3xl bg-slate-200" />
                     </div>
                 </div>
             )}

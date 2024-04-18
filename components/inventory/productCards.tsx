@@ -26,6 +26,7 @@ import ViewHistory from './viewHistory';
 import { useAccount } from 'wagmi';
 import { getInventory } from '@/lib/helpers/getInventory';
 import { Skeleton } from '../ui/skeleton';
+import Spinner from '../spinner';
 
 const ProductCards = () => {
 
@@ -57,8 +58,8 @@ const ProductCards = () => {
 
   return (
     <div className="p-8 grid gap-8 ">
-      {loading ? <div className='flex justify-center'>
-        Loading ...
+      {loading ? <div className='flex justify-center mt-44'>
+        <Spinner />
       </div> : <>
         {inventoryItems.map((item: InventoryItem, index) => (
           <Card key={index} className="p-4 shadow-md bg-orange-400 bg-opacity-20">
@@ -100,7 +101,7 @@ const ProductCards = () => {
                   <DialogTrigger asChild>
                     <Button className='bg-orange-500 hover:bg-orange-300'>View History</Button>
                   </DialogTrigger>
-                  <DialogContent className=" max-w-[60%] h-[75%] overflow-y-auto">
+                  <DialogContent className=" max-w-[60%] h-[90%] overflow-y-auto">
                     <ViewHistory attestationId={item.attestationId} />
                   </DialogContent>
                 </Dialog>
