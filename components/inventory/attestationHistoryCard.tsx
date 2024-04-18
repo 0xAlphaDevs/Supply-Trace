@@ -28,44 +28,48 @@ const AttestationHistoryCard = ({ timestamp, attester, productName, productSeria
   const formattedTimestamp = formatDate(timestamp);
 
   return (
-    <div className='w-[90%]'>
-      <Card className="shadow-md rounded-3xl bg-orange-400 bg-opacity-20 px-4">
-        <CardHeader>
-          <div className='flex justify-between items-center'>
-            <div>
-              <h2 className="text-lg">{formattedTimestamp}</h2>
-              <div className='flex gap-2 text-sm items-center font-md'>Attestated  By: <p className="px-2 py-1 text-sm">
-                {attester}
-              </p>
+    <div className='w-[100%]'>
+      {previousAttestationId !== '' ? (
+        <Card className="shadow-md rounded-3xl bg-orange-400 bg-opacity-20 px-4">
+          <CardHeader>
+            <div className='flex justify-between items-center'>
+              <div>
+                <h2 className="text-lg">{formattedTimestamp}</h2>
+                <div className='flex gap-2 text-sm items-center font-md'>Attestated  By: <p className="px-2 py-1 text-sm">
+                  {attester}
+                </p>
+                </div>
+              </div>
+              <BadgeCheck className='text-green-500 h-12 w-12' />
+            </div>
+          </CardHeader>
+          <CardContent className=''>
+            <div className='flex flex-col items-center'>
+              <div className="text-lg font-semibold">{productName}</div>
+              <div className="flex gap-2 items-center">
+                <div className="flex gap-4">
+                  <div className="text-md font-light">Product Serial No :</div>
+                  <div className="text-sm"> {productSerialNo}</div>
+                </div>
               </div>
             </div>
-            <BadgeCheck className='text-green-500 h-12 w-12' />
-          </div>
-        </CardHeader>
-        <CardContent className=''>
-          <div className='flex flex-col items-center'>
-            <div className="text-lg font-semibold">{productName}</div>
-            <div className="flex gap-2 items-center">
-              <div className="flex gap-4">
-                <div className="text-md font-light">Product Serial No :</div>
-                <div className="text-sm"> {productSerialNo}</div>
-              </div>
+            <div className='flex justify-end pt-2'>
+              {previousAttestationId !== '' ? (
+                <div className='flex gap-2'>
+                  <p>Previous Attestation Id :</p>
+                  <Badge className="text-sm"> {previousAttestationId}</Badge>
+                </div>
+              ) : (
+                <Badge variant='secondary' className="text-md ">Original Attestation</Badge>
+              )}
             </div>
-          </div>
-          <div className='flex justify-end pt-2'>
-            {previousAttestationId !== '' ? (
-              <div className='flex gap-2'>
-                <p>Previous Attestation Id :</p>
-                <Badge className="text-sm"> {previousAttestationId}</Badge>
-              </div>
-            ) : (
-              <Badge variant='secondary' className="text-md ">Original Attestation</Badge>
-            )}
-          </div>
 
-        </CardContent>
+          </CardContent>
 
-      </Card>
+        </Card>
+      ) : (
+        <p className="text-lg font-md">No attestation history found ❌</p>
+      )}
     </div>
   )
 }

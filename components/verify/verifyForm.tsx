@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
 import { verifyHistory } from "@/lib/helpers/verifyHistory";
+import ViewHistory from "../inventory/viewHistory";
+
 
 
 
@@ -20,6 +22,8 @@ const VerifyForm = () => {
     const [formData, setFormData] = useState<CreateJobForm>({
         attestationId: "",
     });
+    const [attestationHistory, setAttestationHistory] = useState<any[]>([]);
+
 
 
     async function verifyProductHistory() {
@@ -46,7 +50,7 @@ const VerifyForm = () => {
     return (
         <div className="flex flex-col items-center text-left pt-24">
 
-            <div className="sm:max-w-[50%] w-[40%]">
+            <div className="sm:max-w-[50%] w-[100%]">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-40 gap-4">
                         <div className="flex justify-center items-center">
@@ -57,7 +61,7 @@ const VerifyForm = () => {
                 ) : (
                     <>
                         {!isSuccess ? (
-                            <div className="flex flex-col items-center text-left">
+                            <div className="flex flex-col items-center">
                                 <p className="text-4xl font-semibold py-4">Verify Product</p>
                                 <p className="font-light"> Enter Attestaion Id to verify a product. </p>
                                 <Separator className="my-4 bg-orange-200" />
@@ -91,7 +95,7 @@ const VerifyForm = () => {
                                 <CheckCircledIcon className="w-20 h-20 text-green-500" />
                                 <p>Verified product Successfully </p>
                                 <Button onClick={() => setIsSuccess(false)} className="bg-orange-500 hover:bg-orange-300" >Verify another Product</Button>
-                                <p className="text-lg font-thin">TO DO :All attestation history displayed below</p>
+                                <ViewHistory attestationId={formData.attestationId} />
                             </div>
 
                         )}
