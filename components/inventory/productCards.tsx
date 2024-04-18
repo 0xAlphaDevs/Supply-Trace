@@ -17,7 +17,7 @@ import Sell from './sell';
 import ViewHistory from './viewHistory';
 import { useAccount } from 'wagmi';
 import { getInventory } from '@/lib/helpers/getInventory';
-import { Skeleton } from '../ui/skeleton';
+import Spinner from '../spinner';
 
 const ProductCards = () => {
 
@@ -51,7 +51,9 @@ const ProductCards = () => {
     <div className="p-8 grid gap-8 ">
       {loading ? <div className='flex justify-center mt-44'>
         <div className="flex justify-center items-center">
-          <div className="w-24 h-24 border-t-4 border-b-4 border-orange-700 rounded-full animate-spin"></div>
+          <div className="flex justify-center items-center p-4">
+            <Spinner />
+          </div>
         </div>
       </div> : <>
         {inventoryItems.map((item: InventoryItem, index) => (

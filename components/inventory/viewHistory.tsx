@@ -27,20 +27,20 @@ const ViewHistory = ({ attestationId }: { attestationId: string }) => {
     }, []);
 
     return (
-        <div className='flex flex-col items-center gap-8'>
-            <p className='flex justify-center text-4xl font-semibold'>Product Attestaion History</p>
+        <div className='flex flex-col items-center gap-4'>
+            <p className='flex justify-center text-2xl font-semibold'>Attestation History</p>
             <Separator className=" bg-orange-200" />
             {/* //Skeleton */}
             {isLoading && (
-                <div className='flex flex-col gap-16 pt-8'>
+                <div className='flex flex-col justify-center items-center gap-4 pt-8'>
                     <div className="flex items-center">
-                        <Skeleton className="h-44 w-[750px] rounded-3xl bg-slate-200" />
+                        <Skeleton className="h-44 w-[620px] rounded-3xl bg-slate-200" />
                     </div>
                     <div className="flex justify-center">
                         <Skeleton className="h-12 w-12 rounded-full bg-slate-200" />
                     </div>
                     <div className="flex items-center">
-                        <Skeleton className="h-44 w-[750px] rounded-3xl bg-slate-200" />
+                        <Skeleton className="h-44 w-[620px] rounded-3xl bg-slate-200" />
                     </div>
                 </div>
             )}

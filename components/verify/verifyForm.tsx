@@ -7,9 +7,9 @@ import { Label } from "@/components/ui/label";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
 import { verifyHistory } from "@/lib/helpers/verifyHistory";
-import ViewHistory from "../inventory/viewHistory";
-
-
+import AttestationHistoryCard from "../inventory/attestationHistoryCard";
+import { CrossIcon, Link, X } from "lucide-react";
+import Spinner from "../spinner";
 
 
 interface CreateJobForm {
@@ -22,11 +22,13 @@ const VerifyForm = () => {
     const [formData, setFormData] = useState<CreateJobForm>({
         attestationId: "",
     });
+    const [history, setHistory] = useState<any[]>([]);
 
     async function verifyProductHistory() {
         try {
             const res = await verifyHistory(formData.attestationId)
             console.log(res);
+            setHistory(res);
             setIsSuccess(true)
             setIsLoading(false)
 
@@ -45,21 +47,20 @@ const VerifyForm = () => {
     };
 
     return (
-        <div className="flex flex-col items-center text-left pt-24">
-
-            <div className="sm:max-w-[50%] w-[100%]">
+        <div className="flex flex-col items-center justify-center text-left mt-32">
+            <div className="sm:max-w-[70%] w-[100%]">
                 {isLoading ? (
-                    <div className="flex flex-col items-center justify-center h-40 gap-4">
-                        <div className="flex justify-center items-center">
-                            <div className="w-12 h-12 border-t-4 border-b-4 border-green-500 rounded-full animate-spin"></div>
+                    <div className="flex flex-col items-center justify-center gap-4">
+                        <div className="flex justify-center items-center p-4">
+                            <Spinner />
                         </div>
-                        <p>Verifying Product ...</p>
+                        <p className="text-xl ">Verifying Product ...</p>
                     </div>
                 ) : (
                     <>
                         {!isSuccess ? (
                             <div className="flex flex-col items-center">
-                                <p className="text-4xl font-semibold py-4">Verify Product</p>
+                                <p className="text-4xl font-semibold">Verify Product</p>
                                 <p className="font-light"> Enter Attestaion Id to verify a product. </p>
                                 <Separator className="my-4 bg-orange-200" />
                                 <form onSubmit={handleSubmitRequest}>
@@ -88,11 +89,33 @@ const VerifyForm = () => {
                                 </form>
                             </div>
                         ) : (
-                            <div className="flex flex-col gap-4 items-center">
-                                <CheckCircledIcon className="w-20 h-20 text-green-500" />
-                                <p>Verified product Successfully </p>
-                                <Button onClick={() => setIsSuccess(false)} className="bg-orange-500 hover:bg-orange-300" >Verify another Product</Button>
-                                <ViewHistory attestationId={formData.attestationId} />
+                            <div className="flex flex-col gap-4 items-center justify-center ">
+                                {history.length === 0 ? <> <X className="w-20 h-20 text-red-500" />
+                                    <p className="font-semibold text-lg mb-10">Product attestation history not found </p>
+                                    <Button onClick={() => setIsSuccess(false)} className="bg-orange-500 hover:bg-orange-300" >Verify another Product</Button>
+                                </>
+                                    :
+                                    <>
+                                        <CheckCircledIcon className="w-20 h-20 text-green-500" />
+                                        <p className="font-semibold text-lg text-green-600">Verified product Successfully </p>
+                                        <Button onClick={() => setIsSuccess(false)} className="bg-orange-500 hover:bg-orange-300" >Verify another Product</Button>
+                                        {/* Render AttestationHistoryCard for each history item */}
+                                        <p className="p-2 text-xl font-light">🔗 Here is the chain of attestation history 🔗</p>
+                                        <p className=" text-xl font-light">Total Attestations found: {history.length} </p>
+                                        {history.map((item, index) => (
+                                            <React.Fragment key={index}>
+                                                <AttestationHistoryCard
+                                                    timestamp={item.attestTimestamp}
+                                                    attester={item.attester}
+                                                    productName={item.data.productName}
+                                                    productSerialNo={item.data.productSerialNo}
+                                                    previousAttestationId={item.data.previousAttestationId}
+                                                />
+                                                {/* Render chain symbol between cards except for the last one */}
+                                                {index !== history.length - 1 && <span><Link className="font-bold text-slate-500 h-10 w-10" /></span>}
+                                            </React.Fragment>
+                                        ))}</>}
+
                             </div>
 
                         )}

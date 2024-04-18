@@ -82,19 +82,24 @@ const Sell = ({ attestationId, productName, productSerialNo, productPrice, taxRa
             }
 
             // create attestaion and sell transaction here
-            // const attestation: AttestationResult = await createAttestation(transaction.attestation, address as string, attestationId)
+            await createAttestation(transaction.attestation, address as string, attestationId).then((attestation: AttestationResult) => {
+                console.log("Attestation: ", attestation);
+                setIsSuccess(true)
+                setIsLoading(false)
 
-            if (attestationId !== "") {
-                console.log("Updating transaction");
-                await updateTransaction(attestationId)
-            }
+            })
 
-            // save transaction obj to db
-            const res = await createTransaction({ ...transaction, attestationId: "105" })
-            console.log("saved transaction to database : ", res)
+            // if (attestationId !== "") {
+            //     console.log("Updating transaction");
+            //     await updateTransaction(attestationId)
+            // }
 
-            setIsSuccess(true)
-            setIsLoading(false)
+            // // save transaction obj to db
+            // const res = await createTransaction({ ...transaction, attestationId: "105" })
+            // console.log("saved transaction to database : ", res)
+
+            // setIsSuccess(true)
+            // setIsLoading(false)
 
             // on success show green tick and attestaion id and link to visit
 
