@@ -18,6 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="favicon.svg" /> {/* Replace "/path/to/your/favicon.ico" with the actual path to your favicon */}
+      </head>
       <body className={inter.className}>
         <Providers>{children}</Providers>
       </body>
