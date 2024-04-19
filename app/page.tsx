@@ -16,19 +16,20 @@ export default function Home() {
 
 
   return (
-    <main className="flex flex-col justify-center items-center min-h-screen gap-8 px-8 ">
-      <h1 className="text-5xl font-semibold text-orange-600">Welcome to Supply Trace</h1>
+    <main className="flex flex-col justify-center items-center min-h-screen gap-8 px-8 bg-gradient-radial">
       <Image
         src="favicon.svg"
-        width={50}
-        height={50}
+        width={100}
+        height={100}
         alt="Picture of the app"
       />
+      <h1 className="text-5xl font-semibold text-indigo-950 ">Welcome to Supply Trace</h1>
+
       <Link href="/app">
-        <Button className="bg-orange-500 hover:bg-orange-400 font-semibold">Launch App</Button>
+        <Button className="font-semibold bg-orange-500 hover:bg-orange-400">Launch App</Button>
       </Link>
       <div className="grid grid-cols-3 gap-8 px-20 pt-8 ">
-        <Card className="shadow-md bg-orange-300 bg-opacity-20 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full bg-orange-500 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardTitle className="text-center text-indigo-950">Transparency</CardTitle>
             <CardDescription className="text-center pt-1">
@@ -36,7 +37,7 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
         </Card>
-        <Card className="shadow-md bg-orange-300 bg-opacity-20 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full bg-orange-500 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardTitle className="text-center text-indigo-950">Auditablity</CardTitle>
             <CardDescription className="text-center pt-1">
@@ -44,7 +45,7 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
         </Card>
-        <Card className="shadow-md bg-orange-300 bg-opacity-20 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full bg-orange-500 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardTitle className="text-center text-indigo-950">Authenticity</CardTitle>
             <CardDescription className="text-center pt-1">
@@ -57,7 +58,7 @@ export default function Home() {
       </div>
 
       <div className="fixed container mx-auto bottom-4 ">
-        <hr className="border-t-1 border-orange-600 mb-4" />
+        <hr className="border-t-1 border-slate-600 mb-4" />
         <div className="flex justify-center items-center">
           <p className="text-indigo-950">&copy; 2024 Supply Trace | All rights reserved.</p>
         </div>

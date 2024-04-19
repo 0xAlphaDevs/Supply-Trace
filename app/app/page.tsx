@@ -21,18 +21,20 @@ export default function Home() {
     return (
 
         <div className=''>
-            <div className="flex justify-between items-center p-8">
-                {/* <p className="text-lg font-semibold ">Supply Trace</p> */}
+            <div className="flex justify-between items-center px-8 py-4">
+                <p className="text-lg font-semibold">Supply Trace</p>
+                <ConnectKitButton />
+            </div>
+            <div className="flex flex-col items-center gap-4 mt-28">
                 <Image
                     src="favicon.svg"
-                    width={30}
-                    height={30}
+                    width={200}
+                    height={200}
                     alt="Picture of the app"
                     className="text-center"
                 />
-                <ConnectKitButton />
+                <div className="text-xl font-semibold"> Please connect your wallet to get started with Supply Trace 😊</div>
             </div>
-            <div className="fixed top-[48%] left-[30%] text-xl font-semibold"> Please connect your wallet to get started with Supply Trace 😊</div>
         </div>
 
     )
