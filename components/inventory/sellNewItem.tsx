@@ -136,7 +136,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
                         <span className="w-2"> </span>Sell New Item</Button>
                 </DialogTrigger>
 
-                <DialogContent className="max-w-[60%]">
+                <DialogContent className="bg-white max-w-[60%]">
                     <DialogHeader className="flex flex-col items-center">
                         <DialogTitle className="text-4xl font-semibold">Sell new item</DialogTitle>
                         <DialogDescription>

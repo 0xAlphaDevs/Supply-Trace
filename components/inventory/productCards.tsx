@@ -96,15 +96,15 @@ const ProductCards = () => {
                   <DialogTrigger asChild>
                     <Button className='bg-orange-500 hover:bg-orange-300'>View History</Button>
                   </DialogTrigger>
-                  <DialogContent className=" max-w-[60%] h-[90%] overflow-y-auto">
+                  <DialogContent className="bg-white max-w-[60%] h-[90%] overflow-y-auto">
                     <ViewHistory attestationId={item.attestationId} />
                   </DialogContent>
                 </Dialog>
-                <Dialog>
+                <Dialog >
                   <DialogTrigger asChild>
                     <Button className='bg-orange-500 hover:bg-orange-300'>Sell</Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-[60%]">
+                  <DialogContent className="bg-white max-w-[60%]">
                     <Sell attestationId={item.attestationId} productName={item.productName} productSerialNo={item.productSerialNo} productPrice={item.grandTotal} taxRate={item.taxRate} />
                   </DialogContent>
                 </Dialog>

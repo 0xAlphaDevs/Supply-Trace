@@ -126,7 +126,7 @@ const Sell = ({ attestationId, productName, productSerialNo, productPrice, taxRa
     };
 
     return (
-        <div className="flex flex-col items-center text-left">
+        <div className="flex flex-col items-center text-left ">
             <div className="mx-40">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-40 gap-4">
