@@ -82,12 +82,12 @@ const Sell = ({ attestationId, productName, productSerialNo, productPrice, taxRa
             }
 
             // create attestaion and sell transaction here
-            await createAttestation(transaction.attestation, address as string, attestationId).then((attestation: AttestationResult) => {
-                console.log("Attestation: ", attestation);
-                setIsSuccess(true)
-                setIsLoading(false)
+            // await createAttestation(transaction.attestation, address as string, attestationId).then((attestation: AttestationResult) => {
+            //     console.log("Attestation: ", attestation);
+            //     setIsSuccess(true)
+            //     setIsLoading(false)
 
-            })
+            // })
 
             // if (attestationId !== "") {
             //     console.log("Updating transaction");

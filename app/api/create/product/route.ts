@@ -7,7 +7,6 @@ export const runtime = "nodejs";
 export async function POST(req: NextRequest, res: Response) {
   const product = await req.json();
 
-  console.log(product);
   try {
     const result = await prisma.products.create({
       data: product as Product,

@@ -19,7 +19,7 @@ type ProductAttestationSchema {
   soldBy                String
   boughtBy              String
   previousAttestationId String
-  grandTotal            Float
+  grandTotal            String
   taxRate               Float
 }
 

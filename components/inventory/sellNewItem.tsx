@@ -25,7 +25,7 @@ import { Separator } from '../ui/separator';
 import { useAccount } from "wagmi";
 import { isAddress } from "viem";
 import { Transaction } from "@/lib/types";
-import { createAttestation } from "@/lib/helpers/createAttestation";
+// import { createAttestation } from "@/lib/helpers/createAttestation";
 import { AttestationResult } from "@ethsign/sp-sdk";
 import Spinner from "../spinner";
 
@@ -83,12 +83,12 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
             }
 
             // create attestaion and sell transaction here
-            await createAttestation(transaction.attestation, address as string, attestationId).then((attestation: AttestationResult) => {
-                console.log("Attestation: ", attestation);
-                setIsSuccess(true)
-                setIsLoading(false)
+            // await createAttestation(transaction.attestation, address as string, attestationId).then((attestation: AttestationResult) => {
+            //     console.log("Attestation: ", attestation);
+            //     setIsSuccess(true)
+            //     setIsLoading(false)
 
-            })
+            // })
 
             // if (attestationId !== "") {
             //     console.log("Updating transaction");

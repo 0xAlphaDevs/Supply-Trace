@@ -11,7 +11,6 @@ export default function Home() {
     const { isConnected, address } = useAccount()
     const router = useRouter()
 
-
     useEffect(() => {
         if (address) {
             router.push('/inventory')

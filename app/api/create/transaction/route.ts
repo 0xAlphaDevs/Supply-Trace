@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, res: Response) {
   console.log("Creating transaction: ", transaction);
   try {
     const result = await prisma.transactions.create({
-      data: transaction,
+      data: transaction as any,
     });
     return NextResponse.json(JSON.stringify(result), { status: 200 });
   } catch (error) {

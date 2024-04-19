@@ -1,4 +1,4 @@
-// This is landing page for the app
+"use client"
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/card";
 
 export default function Home() {
-
 
   return (
     <main className="flex flex-col justify-center items-center min-h-screen gap-8 px-8 bg-gradient-radial">

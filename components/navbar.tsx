@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils"
 
 const Navbar = () => {
   const pathname = usePathname()
+
   return (
     <div className="flex justify-between">
       <div className="flex gap-48 items-center">

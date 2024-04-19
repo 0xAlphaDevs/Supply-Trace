@@ -6,11 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
-import { verifyHistory } from "@/lib/helpers/verifyHistory";
+// import { verifyHistory } from "@/lib/helpers/verifyHistory";
 import AttestationHistoryCard from "../inventory/attestationHistoryCard";
 import { CrossIcon, Link, X } from "lucide-react";
 import Spinner from "../spinner";
-
+import { Attestation } from "@ethsign/sp-sdk";
+import {
+    SignProtocolClient,
+    EvmChains,
+    SpMode,
+    OnChainClientOptions,
+    Schema,
+} from "@ethsign/sp-sdk";
+import { sepolia } from "viem/chains";
 
 interface CreateJobForm {
     attestationId: string;
@@ -129,3 +137,67 @@ const VerifyForm = () => {
 
 export default VerifyForm;
 
+// helper function
+
+async function verifyHistory(attestationId: string) {
+    let chainOfAttestations = [];
+
+    try {
+        const attestation: Attestation = await getAttestation(attestationId);
+
+        if (!attestation) {
+            throw new Error("Attestation not found");
+        } else {
+            chainOfAttestations.push(attestation);
+
+            if (!attestation.linkedAttestationId) {
+                // console.log("no linked attestation id");
+                return chainOfAttestations;
+            } else {
+                let linkedAttestationId = attestation.linkedAttestationId;
+                while (linkedAttestationId !== "") {
+                    const previousAttestation = await getAttestation(linkedAttestationId);
+                    // console.log("previous attestation: ", previousAttestation);
+
+                    if (previousAttestation) {
+                        // console.log(" updating chain of attestations");
+                        chainOfAttestations.push(previousAttestation);
+                        linkedAttestationId = previousAttestation.linkedAttestationId
+                            ? previousAttestation.linkedAttestationId
+                            : "";
+                    }
+                }
+            }
+            return chainOfAttestations;
+        }
+    } catch (error) {
+        return chainOfAttestations;
+    }
+}
+
+
+async function getAttestation(
+    attestationId: string
+): Promise<Attestation> {
+    const spMode = SpMode.OnChain;
+    const options: OnChainClientOptions = {
+        chain: EvmChains.sepolia,
+        rpcUrl: sepolia.rpcUrls.default.http[0],
+    };
+
+    const signProtocolClient = new SignProtocolClient(spMode, options);
+    // Get attestation using SignProtocolClient
+    try {
+        const res: Attestation = await signProtocolClient.getAttestation(
+            attestationId
+        );
+        if (res.schemaId == "0x25") {
+            return res;
+        } else {
+            throw new Error("Attestation not found");
+        }
+    } catch (error) {
+        console.error(error);
+        throw new Error("An unexpected error occurred");
+    }
+}

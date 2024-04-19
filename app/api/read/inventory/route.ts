@@ -15,7 +15,7 @@ export async function POST(req: NextRequest, res: Response) {
     });
 
     let inventory: InventoryItem[] = [];
-    result.forEach((item: Transaction) => {
+    result.forEach((item: any) => {
       // @ts-ignore
       inventory.push({
         productName: item.attestation.productName,
@@ -24,8 +24,8 @@ export async function POST(req: NextRequest, res: Response) {
         boughtBy: item.attestation.boughtBy,
         attestationId: item.attestationId,
         previousAttestationId: item.attestation.previousAttestationId,
-        grandTotal: item.attestation.grandTotal,
-        taxRate: item.attestation.taxRate,
+        grandTotal: Number(item.attestation.grandTotal),
+        taxRate: Number(item.attestation.taxRate),
       });
     });
 

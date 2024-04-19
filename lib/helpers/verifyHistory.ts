@@ -1,3 +1,4 @@
+"use client";
 import { getAttestation } from "./getAttestation";
 import { Attestation } from "@ethsign/sp-sdk";
 
