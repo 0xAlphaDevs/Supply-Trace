@@ -13,10 +13,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
+type ProductAttestationSchema {
+  productName           String
+  productSerialNo       String
+  soldBy                String
+  boughtBy              String
+  previousAttestationId String
+  grandTotal            Float
+  taxRate               Float
+}
+
 model Transactions {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  attestation      Json
-  attestationId    String   @unique
+  id               String                   @id @default(auto()) @map("_id") @db.ObjectId
+  attestation      ProductAttestationSchema
+  attestationId    String                   @unique
   from             String
   to               String
   archived         Boolean
