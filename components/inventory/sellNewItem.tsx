@@ -22,95 +22,108 @@ import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
-
+import { useAccount } from "wagmi";
+import { isAddress } from "viem";
+import { Transaction } from "@/lib/types";
+import { createAttestation } from "@/lib/helpers/createAttestation";
+import { AttestationResult } from "@ethsign/sp-sdk";
+import Spinner from "../spinner";
 
 interface CreateSellNewItemForm {
     productName: string;
     productSerialNo: string;
-    grandTotal: number;
-    taxRate: number;
+    productTotal: number | null;
+    taxRate: number | null;
     sellTo: string
 }
 // dropdown select product, [product name] , [product serial no], grand total, [tax rate], sell to
 
 const SellNewItem = ({ attestationId }: { attestationId: string }) => {
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadingMessage, setLoadingMessage] = useState("Loading ...")
     const [isSuccess, setIsSuccess] = useState(false);
+
+
+    const [error, setError] = useState('')
+
     const [formData, setFormData] = useState<CreateSellNewItemForm>({
         productName: "",
-        productSerialNo: "",
-        grandTotal: 0,
-        taxRate: 0,
+        productSerialNo:
+            "",
+        productTotal: null,
+        taxRate: null,
         sellTo: "",
     });
 
-    function handleClick() {
-        // reset all state values
-        setFormData({
-            productName: "",
-            productSerialNo: "",
-            grandTotal: 0,
-            taxRate: 0,
-            sellTo: "",
-        });
+    const { address } = useAccount()
+
+    function validateInputs() {
+        return (isAddress(formData.sellTo as string) && Number(formData.productTotal) > 0)
     }
 
-    const constructSellNewItem = (
-        productName: string,
-        productSerialNo: string,
-        grandTotal: number,
-        taxRate: number,
-        sellTo: string,
-    ) => {
-        const currentDate = new Date().toLocaleDateString();
-        const currentTime = new Date().toLocaleTimeString();
-
-        const newSellNewItemData = {
-            productName: productName,
-            productSerialNo: productSerialNo,
-            grandTotal: grandTotal,
-            taxRate: taxRate,
-            sellTo: sellTo,
-        };
-        return newSellNewItemData;
-    };
-
-    async function createSellNewItem() {
+    async function createSell() {
         try {
-            // setIsLoading(true);
-            const newSellNewItemData = constructSellNewItem(
-                formData.productName,
-                formData.productSerialNo,
-                formData.grandTotal,
-                formData.taxRate,
-                formData.sellTo
-            );
-            console.log(" Data: ", newSellNewItemData);
+            const transaction: Transaction = {
+                attestation: {
+                    previousAttestationId: attestationId,
+                    productName: formData.productName,
+                    productSerialNo: formData.productSerialNo,
+                    soldBy: address as string,
+                    boughtBy: formData.sellTo as string,
+                    grandTotal: formData.productTotal as number,
+                    taxRate: formData.taxRate as number, // 10%
+                },
+                attestationId: attestationId,
+                from: address as string,
+                to: formData.sellTo as string,
+                archived: false,
+                transactionValue: Number(formData.productTotal),
+                timestamp: new Date(),
+            }
 
-            // write({
-            //     args: [
-            //         newSellNewItemData.title,
-            //         newSellNewItemData.description,
-            //         newSellNewItemData.createdAt,
-            //         newSellNewItemData.tags,
-            //         Number(newSellNewItemData.budget) * 10 ** 18,
-            //     ],
-            // });
-            //   const result = await saveJobData(formData.title);
+            // create attestaion and sell transaction here
+            await createAttestation(transaction.attestation, address as string, attestationId).then((attestation: AttestationResult) => {
+                console.log("Attestation: ", attestation);
+                setIsSuccess(true)
+                setIsLoading(false)
 
-            // setIsLoading(false);
+            })
+
+            // if (attestationId !== "") {
+            //     console.log("Updating transaction");
+            //     await updateTransaction(attestationId)
+            // }
+
+            // // save transaction obj to db
+            // const res = await createTransaction({ ...transaction, attestationId: "105" })
+            // console.log("saved transaction to database : ", res)
+
+            // setIsSuccess(true)
+            // setIsLoading(false)
+
+            // on success show green tick and attestaion id and link to visit
+
+
         } catch (error) {
             console.error("Error submitting record:", error);
-            // setIsLoading(false);
+            setIsLoading(false);
         }
     }
 
     const handleSubmitRequest = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        console.log("Selling new item...");
-        console.log("Form Data: ", formData);
-        await createSellNewItem();
+        console.log("Selling Item...");
+        if (validateInputs()) {
+            console.log("Form Data: ", formData);
+            setIsLoading(true)
+            // setIsSuccess(true)
+            await createSell();
+        }
+        else {
+            setError("Please enter valid ETH address and selling price")
+        }
+
     };
 
 
@@ -133,8 +146,8 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
                     <div className="mx-40">
                         {isLoading ? (
                             <div className="flex flex-col items-center justify-center h-40 gap-4">
-                                {/* <Loader /> */}
-                                <p>Selling Product ...</p>
+                                <Spinner />
+                                <p>{loadingMessage}</p>
                             </div>
                         ) : (
                             <>
@@ -199,11 +212,12 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
                                                         type="number"
                                                         placeholder="Enter product serial no"
                                                         className="col-span-3"
-                                                        value={formData.grandTotal}
+                                                        // @ts-ignore
+                                                        value={formData.productTotal}
                                                         onChange={(e: { target: { value: any } }) =>
                                                             setFormData({
                                                                 ...formData,
-                                                                grandTotal: e.target.value,
+                                                                productTotal: e.target.value,
                                                             })
                                                         }
                                                         required
@@ -219,6 +233,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
                                                         type="number"
                                                         placeholder="Enter tax rate"
                                                         className="col-span-3"
+                                                        // @ts-ignore
                                                         value={formData.taxRate}
                                                         onChange={(e: { target: { value: any } }) =>
                                                             setFormData({
@@ -249,7 +264,7 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
                                                     />
 
                                                 </div>
-                                                <div className="inline-block text-center py-4"><Button onClick={handleClick} type="submit" className="bg-orange-400 hover:bg-orange-500" >Sell</Button></div>
+                                                <div className="inline-block text-center py-4"><Button type="submit" className="bg-orange-400 hover:bg-orange-500" >Sell</Button></div>
                                             </div>
                                         </form>
                                     </div>
