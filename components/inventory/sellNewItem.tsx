@@ -126,7 +126,6 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
 
     };
 
-
     return (
         <div className='px-8 flex justify-between'>
             <p className="text-4xl text-center font-semibold"> Inventory</p>
