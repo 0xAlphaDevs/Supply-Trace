@@ -11,7 +11,7 @@ export async function createAttestation(
   try {
     const res: AttestationResult = await signProtocolClient.createAttestation({
       data: product,
-      schemaId: "0x25",
+      schemaId: "0x19",
       indexingValue: wallet,
       linkedAttestationId: previousAttestationId ? previousAttestationId : "",
     });

@@ -14,7 +14,7 @@ export async function getAttestation(
     const res: Attestation = await signProtocolClient.getAttestation(
       attestationId
     );
-    if (res.schemaId == "0x25") {
+    if (res.schemaId == "0x19") {
       return res;
     } else {
       throw new Error("Attestation not found");
