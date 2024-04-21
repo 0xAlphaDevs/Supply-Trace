@@ -5,17 +5,44 @@ import { useAccount, useReadContract } from "wagmi";
 import { useRouter } from "next/navigation";
 import { ConnectKitButton } from "connectkit";
 import Image from "next/image";
-import Link from "next/link"
+import Link from "next/link";
+import { supplyTraceRegistryAbi } from "@/constants/abi/supplyTraceRegistry";
+
+interface User {
+  name: string;
+  industry: string;
+}
 
 export default function Home() {
   const { isConnected, address } = useAccount();
+  const [showModal, setShowModal] = useState(false);
+
   const router = useRouter();
+  const { data, isFetched } = useReadContract({
+    abi: supplyTraceRegistryAbi,
+    functionName: "getUser",
+    address: "0x6aEa5211b23d5E87DDCC2BC7DDb04002ce469269",
+    args: [address],
+  });
+
+  console.log("Data from Registry", data);
 
   useEffect(() => {
-    if (address) {
+    let user: User = {
+      //@ts-ignore
+      name: data ? data[0] : "",
+      //@ts-ignore
+      industry: data ? data[1] : "",
+    };
+
+    if (user.name == "") {
+      setShowModal(true);
+    }
+
+    if (address && user.name) {
       router.push("/inventory");
     }
-  });
+  }, [data]);
 
   return (
     <div className="">

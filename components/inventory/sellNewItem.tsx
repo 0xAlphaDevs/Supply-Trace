@@ -37,6 +37,8 @@ import Spinner from "../spinner";
 import { Badge } from "../ui/badge";
 import { ProductAttestationSchema } from "@/lib/types";
 import { useToast } from "../ui/use-toast";
+import { useReadContract } from "wagmi";
+import { supplyTraceRegistryAbi } from "@/constants/abi/supplyTraceRegistry";
 
 interface CreateSellNewItemForm {
   productName: string;
@@ -50,6 +52,16 @@ type ProductWithoutAddress = Omit<Product, "vendorWalletAddress">;
 
 const SellNewItem = ({ attestationId }: { attestationId: string }) => {
   const { toast } = useToast();
+  const { address } = useAccount();
+
+  const { data: user, isFetched } = useReadContract({
+    abi: supplyTraceRegistryAbi,
+    functionName: "getUser",
+    address: "0x6aEa5211b23d5E87DDCC2BC7DDb04002ce469269",
+    args: [address],
+  });
+
+  console.log("User: ", user);
 
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Loading ...");
@@ -65,8 +77,6 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
     taxRate: 0,
     sellTo: "",
   });
-
-  const { address } = useAccount();
 
   function validateInputs() {
     return (
@@ -165,9 +175,20 @@ const SellNewItem = ({ attestationId }: { attestationId: string }) => {
   return (
     <>
       <p className="text-4xl text-left font-bold p-4 mb-3 ">
-        Welcome, <span className="text-orange-600">AlphaDevs Inc.</span>{" "}
+        Welcome,{" "}
+        <span className="text-orange-600">
+          {isFetched
+            ? // @ts-ignore
+              user[0]
+            : "....."}
+        </span>{" "}
         <sup>
-          <Badge variant="default">Web Development</Badge>
+          <Badge variant="default">
+            {isFetched
+              ? // @ts-ignore
+                user[1]
+              : "....."}
+          </Badge>
         </sup>
       </p>
       <div className="px-8 flex justify-between">
