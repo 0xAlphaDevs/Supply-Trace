@@ -51,7 +51,7 @@ interface FinalTransaction extends Transaction {
   counterParty: string;
 }
 
-export function PastTransactionsTable() {
+export function PastTransactionsTable({ setTxns }: any) {
   const { address } = useAccount();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -97,6 +97,7 @@ export function PastTransactionsTable() {
         ...sellTransactions,
       ];
       setTransactions(finalTransactions);
+      setTxns(combinedTransactions);
     }
 
     setLoading(false);
