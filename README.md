@@ -11,6 +11,7 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 ##
 
 [![Deployed App](https://img.shields.io/badge/Deployed%20App-Violet?style=for-the-badge&logo=website&color=violet)](https://supply-trace.alphadevs.dev)
+[![Presentation](https://img.shields.io/badge/Presentation-Dark%20Indigo?style=for-the-badge&logo=website&color=3b5998)](https://docs.google.com/presentation/d/15K4sFAMuGPwWHLnEHocL3IiMbMkKD92nwwm5lID9f2o/edit?usp=sharing)
 
 ## Contract Deployed on Arbitrum Sepolia Testnet
 
