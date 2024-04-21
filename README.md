@@ -16,7 +16,7 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 
 ## System Architecture
 
-![image]() ![image]()
+![image](/public/system-architecture.png)
 
 ## Instructions to setup locally
 
