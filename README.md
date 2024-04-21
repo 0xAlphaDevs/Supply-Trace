@@ -8,21 +8,15 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 - Auditable trail of product journey for tax compliance and better supply chain management.
 - Verify authenticity and origin of goods.
 
-[![Deployed App](https://img.shields.io/badge/Deployed%20App-Violet?style=for-the-badge&logo=website&color=violet)]()
+[![Deployed App](https://img.shields.io/badge/Deployed%20App-Violet?style=for-the-badge&logo=website&color=violet)](https://supply-trace.alphadevs.dev)
 
 ## Contract Deployed on Arbitrum Sepolia Testnet
 
 - SupplyTraceRegistry.sol - 0x6aEa5211b23d5E87DDCC2BC7DDb04002ce469269
 
-## Usage Instructions
-
--
-
 ## System Architecture
 
 ![image](/public/system-architecture.png)
-
-## Instructions to setup locally
 
 ## App Demo Screenshots
 
@@ -33,7 +27,17 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 
 ## Tech Stack
 
--
+- Eth Sign Protocol SDK
+- Arbitrum Sepolia Testnet
+- TypeScript & React
+- Tanstack & Radix UI
+
+## Instructions to setup locally
+
+- Clone the Git repository: `https://github.com/0xAlphaDevs/Supply-Trace.git`
+- Install project dependencies: `pnpm install`
+- Start the development server: `pnpm run dev`
+- Access the web app in your browser at [http://localhost:3000](http://localhost:3000)
 
 ## Team
 
