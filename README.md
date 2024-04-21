@@ -20,19 +20,19 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 
 ![image](/public/system-architecture.png)
 
-## App Demo Screenshots
-
-![image](/public/app/1.jpg)
-![image](/public/app/2.jpg)
-![image](/public/app/3.jpg)
-![image](/public/app/4.jpg)
-
 ## Tech Stack
 
 - Eth Sign Protocol SDK
 - Arbitrum Sepolia Testnet
 - TypeScript & React
 - Tanstack & Radix UI
+
+## App Demo Screenshots
+
+![image](/public/app/1.jpg)
+![image](/public/app/2.jpg)
+![image](/public/app/3.jpg)
+![image](/public/app/4.jpg)
 
 ## Instructions to setup locally
 
