@@ -7,6 +7,7 @@ import { ConnectKitButton } from "connectkit";
 import Image from "next/image";
 import Link from "next/link";
 import { supplyTraceRegistryAbi } from "@/constants/abi/supplyTraceRegistry";
+import UserRegistry from "@/components/userRegistry";
 
 interface User {
   name: string;
@@ -35,7 +36,7 @@ export default function Home() {
       industry: data ? data[1] : "",
     };
 
-    if (user.name == "") {
+    if (user.name == "" && data !== undefined) {
       setShowModal(true);
     }
 
@@ -46,6 +47,7 @@ export default function Home() {
 
   return (
     <div className="">
+      {/* Navbar */}
       <div className="flex justify-between items-center px-8 py-4">
         <Link href="/app" className="flex gap-2 text-xl font-bold">
           <Image
@@ -58,19 +60,38 @@ export default function Home() {
         </Link>
         <ConnectKitButton />
       </div>
-      <div className="flex flex-col items-center gap-4 mt-28">
-        <Image
-          src="favicon.svg"
-          width={200}
-          height={200}
-          alt="Picture of the app"
-          className="text-center"
-        />
-        <div className="text-xl font-semibold">
-          {" "}
-          Please connect your wallet to get started with Supply Trace 😊
+
+      {showModal ? (
+        <div className="flex flex-col items-center gap-4 mt-28">
+          <Image
+            src="favicon.svg"
+            width={200}
+            height={200}
+            alt="Picture of the app"
+            className="text-center"
+          />
+          <div className="text-xl font-semibold">
+            {" "}
+            This wallet is not yet registered with Supply Trace. Click Register
+            below to continue
+          </div>
+          <UserRegistry />
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col items-center gap-4 mt-28">
+          <Image
+            src="favicon.svg"
+            width={200}
+            height={200}
+            alt="Picture of the app"
+            className="text-center"
+          />
+          <div className="text-xl font-semibold">
+            {" "}
+            Please connect your wallet to get started with Supply Trace 😊
+          </div>
+        </div>
+      )}
     </div>
   );
 }
