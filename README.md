@@ -8,6 +8,8 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 - Auditable trail of product journey for tax compliance and better supply chain management.
 - Verify authenticity and origin of goods.
 
+##
+
 [![Deployed App](https://img.shields.io/badge/Deployed%20App-Violet?style=for-the-badge&logo=website&color=violet)](https://supply-trace.alphadevs.dev)
 
 ## Contract Deployed on Arbitrum Sepolia Testnet
@@ -20,10 +22,10 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 
 ## App Demo Screenshots
 
-![image]()
-![image]()
-![image]()
-![image]()
+![image](/public/app/1.jpg)
+![image](/public/app/2.jpg)
+![image](/public/app/3.jpg)
+![image](/public/app/4.jpg)
 
 ## Tech Stack
 
