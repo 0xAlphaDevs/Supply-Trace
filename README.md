@@ -15,7 +15,7 @@ Transparent tracking and provenance of supply chain | Built using sign protocol
 
 ## Contract Deployed on Arbitrum Sepolia Testnet
 
-- SupplyTraceRegistry.sol - 0x6aEa5211b23d5E87DDCC2BC7DDb04002ce469269
+- SupplyTraceRegistry.sol - [0x6aEa5211b23d5E87DDCC2BC7DDb04002ce469269](https://sepolia.arbiscan.io/address/0x6aea5211b23d5e87ddcc2bc7ddb04002ce469269)
 
 ## System Architecture
 
