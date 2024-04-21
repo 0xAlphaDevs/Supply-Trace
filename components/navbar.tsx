@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const Navbar = () => {
   const pathname = usePathname()
@@ -23,7 +24,15 @@ const Navbar = () => {
   return (
     <div className="flex justify-between">
       <div className="flex gap-48 items-center">
-        <Link href="/app" className="text-xl font-bold">Supply Trace</Link>
+        <Link href="/app" className="flex gap-2 text-xl font-bold">
+          <Image
+            src="favicon.svg"
+            width={25}
+            height={20}
+            alt="Picture of the app"
+          />
+          <p>Supply Trace</p>
+        </Link>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

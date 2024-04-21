@@ -5,6 +5,7 @@ import { useAccount, useReadContract } from "wagmi";
 import { useRouter } from "next/navigation";
 import { ConnectKitButton } from "connectkit";
 import Image from "next/image";
+import Link from "next/link"
 
 export default function Home() {
   const { isConnected, address } = useAccount();
@@ -19,7 +20,15 @@ export default function Home() {
   return (
     <div className="">
       <div className="flex justify-between items-center px-8 py-4">
-        <p className="text-lg font-semibold">Supply Trace</p>
+        <Link href="/app" className="flex gap-2 text-xl font-bold">
+          <Image
+            src="favicon.svg"
+            width={25}
+            height={20}
+            alt="Picture of the app"
+          />
+          <p>Supply Trace</p>
+        </Link>
         <ConnectKitButton />
       </div>
       <div className="flex flex-col items-center gap-4 mt-28">
